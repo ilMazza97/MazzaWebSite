@@ -1,0 +1,60 @@
+﻿@using MazzaWebSite.Resources;
+@{
+    ViewBag.Title = string.Format("{0} - {1}", Business.CryptoProject, General.OMPTitle);
+}
+<div class="body-content container">
+    <h1>Crypto Project</h1>
+    <div class="row about-container">
+
+        <div class="col-lg-6 content order-lg-1 order-2">
+            <p>
+                Il progetto è composto da un insieme di trader professionisti,
+                il top in Europa, proveniente dal Lussemburgo, patria della Finanza europea e anche di scuole relative all’economia e la finanza rinomatissime nel mondo.
+            </p>
+            <p>
+                Questo progetto ha dato il via a un piano che si chiama <b>Extreme Plan</b>, che offre dei ritorni settimanali
+                derivati dal trading su un totale di oltre 700 cryptovalute e mining grazie a un programma denominato “Extreme 7 trade software“.
+            </p>
+            <p>
+                Quest'ultimi riescono a fare trading su delle copie di cripto valute considerando l’andamento del mercato in quel preciso istante, cioè scelgono tra più di
+                700 valute quelle che stanno avendo dei piccoli pump, ovvero degli andamenti positivi, durante l’ora della giornata.
+            </p>
+            @*<p>
+                Questi piani riescono a generare un volume importante e che profitta un minimo del 16% di profitto settimanale, anche ad arrivare a superare il 60% mensile.
+            </p>*@
+        </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vQPMUK0mQn4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" align="right" allowfullscreen></iframe>
+    </div>
+    <div class="row about-container">
+
+        <div class="col-lg-6 content order-lg-1 order-2">
+            <p>
+                <b>• Is it safe and secure?</b> - The Extreme Plan is the safest Cryptocurrency trading plan in Europe. It is backed by 12 layers of security and 4 fail-safe protocols. There is also a 97% money-back guarantee.
+            </p>
+            <p>
+                <b>• Can I have complete anonymity?</b> - The company undertands how much certain businessmen love their privacy. Anonymity under the ultimate plan is a basic requirement. the client’s information will never be shared with any third parties.
+                </>
+            <p>
+                <b>• Are there any hidden withdrawal fees?</b> - No. The company its revenue off commissions with trading and brokerge companies, as well as profits left over from trading after the client has been paid.
+            </p>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    @if (Request.IsAuthenticated)
+    {
+        <div class="col-lg-2 col-md-5 mb-3">
+            <div class="col-lg-2 col-md-5 mb-3">
+                <button type="submit" class="btn btn-primary align-content-center" onclick="parent.location='https://telegram.me/OneMillionAdminbot'">@General.Enter</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-7 mb-3">
+            @Html.ActionLink("Registrati per entrare!", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

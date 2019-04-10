@@ -1,0 +1,314 @@
+﻿@using MazzaWebSite.Resources;
+@using MazzaWebSite.Models;
+@using System.Globalization;
+@model UserEntityModel
+@{
+    ViewBag.Title = string.Format("{0} - {1}", General.Home, General.OMPTitle);
+}
+
+<!--==========================
+   Main-content Section
+ ============================-->
+<div id="main-content">
+    <section id="intro" class="clearfix">
+        <div class="container">
+            <div class="main-content-img">
+                <img src="~/img/intro-img.svg" alt="" class="img-fluid">
+            </div>
+            <br />
+            <div class="main-content-info">
+                <h2>@Html.Raw(Home.Motto)</h2>
+                <div>
+                    <a href="#about" class="btn-get-started scrollto">@Home.GetStarted</a>
+                    <a href="#services" class="btn-services scrollto">@Home.OurTarget</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<main id="main">
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+        <div class="container">
+
+            <header class="section-header">
+                <h3>@Home.AboutUs</h3>
+                <p>@Home.AboutUsST</p>
+            </header>
+
+            <div class="row about-container">
+
+                <div class="col-lg-6 content order-lg-1 order-2">
+                    <br />
+                    @Html.Raw(Home.AboutUs1P)
+                </div>
+
+                <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="./img/about-extra-1.svg" class="img-fluid" alt="">
+                </div>
+            </div>
+
+            <div class="row about-extra">
+                <div class="col-lg-6 wow fadeInUp">
+                    <img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="./img/about-extra-1.1.svg" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+                    @Html.Raw(Home.AboutUs2P)
+                </div>
+            </div>
+
+            <div class="row about-container">
+                <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+                    <img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="./img/about-extra-2.2.svg" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+                    @Html.Raw(Home.AboutUs3P)
+
+                    <div class="icon-box wow fadeInUp">
+                        <div class="icon"><i class="fa fa-btc"></i></div>
+                        <h4 class="title">@Html.ActionLink(MazzaWebSite.Resources.Business.CryptoProject, "CryptoProject", "Business")</h4>
+                        <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                    </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="icon"><i class="fa fa-line-chart"></i></div>
+                        <h4 class="title">@Html.ActionLink(MazzaWebSite.Resources.Business.TradingProject, "UnderCostruction", "Shared")</h4>
+                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="icon"><i class="fa fa-futbol-o"></i></div>
+                        <h4 class="title">@Html.ActionLink(MazzaWebSite.Resources.Business.BettingProject, "UnderCostruction", "Shared")</h4>
+                        <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!--==========================
+      Services Section
+    ============================-->
+    <section id="services" class="section-bg">
+        <div class="container">
+            <header class="section-header">
+                <h3>@Home.OurTarget</h3>
+                <br />
+            </header>
+            <div class="row">
+
+                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-ios-briefcase" style="color: #00abff;"></i></div>
+                        <h4 class="title">@Home.Professionality</h4>
+                        <p class="description">@Home.ProfessionalityST</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-ios-lightbulb" style="color: #ffd000;"></i></div>
+                        <h4 class="title">@Home.Strategy</h4>
+                        <p class="description">@Home.StrategyST</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-ios-list" style="color: #ff4d2e;"></i></div>@*ion-ios-paper-outline*@
+                        <h4 class="title">@Home.Transparency</h4>
+                        <p class="description">@Home.TransparencyST</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-locked" style="color: #00b95d"></i></div>
+                        <h4 class="title">@Home.Security</h4>
+                        <p class="description">@Home.SecurityST</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-android-globe" style="color: #2ec2c5;"></i></div> @*ion-ios-world-outline*@
+                        <h4 class="title">@Home.Community</h4>
+                        <p class="description">@Home.CommunityST</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+                    <div class="box">
+                        <div class="icon"><i class="ion-ios-time" style="color: #001dff;"></i></div>
+                        <h4 class="title">@Home.Punctuality</h4>
+                        <p class="description">@Home.PunctualityST</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!--==========================
+      Why Us Section
+    ============================-->
+    <section id="why-us" class="wow fadeIn">
+        <div class="container">
+            <header class="section-header">
+                <h3>@Home.WhyInvestWithUs</h3>
+                <p>@Home.WhyInvestWithUsST</p>
+            </header>
+
+            <div class="row row-eq-height justify-content-center">
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card wow bounceInUp">
+                        <i class="fa fa-diamond"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">@Home.PassiveIcome</h5>
+                            <p class="card-text">@Home.PassiveIcomeST</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card wow bounceInUp">
+                        <i class="fa fa-balance-scale"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">@Home.DiversifyEarnings</h5>
+                            <p class="card-text">@Home.DiversifyEarningsST</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card wow bounceInUp">
+                        <i class="fa fa-users"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">@Home.NetworkPossibility</h5>
+                            <p class="card-text">@Home.NetworkPossibilityST</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row counters">
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">@Model.Users.Count</span>
+                    <p>@Home.Clients</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">@(@Model.Deposits.Count + @Model.Withdrawals.Count)</span>
+                    <p>@Home.Transactions</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">@string.Format(new CultureInfo("en-US"), "{0:N}", @Model.Deposits.Sum(a => a.TotalAmount))</span>
+                    <p>@Home.CapitalInvested</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">@string.Format(new CultureInfo("en-US"), "{0:N}", @Model.Withdrawals.Sum(a => a.TotalAmount))</span>
+                    <p>@Home.CapitalWithdrawn</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!--==========================
+      Slider Section
+    ============================-->
+
+    <section id="social-slider" class="section-bg">
+        <div class="container">
+
+            <header class="section-header">
+                <h3>Socials</h3>
+            </header>
+
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+            <div class="container">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="100000">
+                    <div class="carousel-inner row w-100 mx-auto" role="listbox">
+
+                        <div class="carousel-item col-md-3 active">
+                            <div class="panel panel-default">
+                                <div class="panel-thumbnail">
+                                        <img class="img-fluid mx-auto d-block" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="@Model.InstagramUrlImage[0]" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        @for (int i = 1; i < Model.InstagramUrlImage.Count; i++)
+                        {
+                            <div class="carousel-item col-md-3 ">
+                                <div class="panel panel-default">
+                                    <div class="panel-thumbnail">
+                                            <img class="img-fluid mx-auto d-block" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="@Model.InstagramUrlImage[i]" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#myCarousel" role="button" aria-label="prev" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next text-faded" href="#myCarousel" role="button" aria-label="next" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script language="javascript">
+
+    $('#myCarousel').on('slide.bs.carousel', function (e) {
+
+
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 4;
+        var totalItems = $('.carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                }
+                else {
+                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        }
+    });
+
+    $('#myCarousel').carousel({
+        interval: 1500
+    });
+
+
+    $(document).ready(function () {
+        /* show lightbox when clicking a thumbnail */
+        $('a.thumb').click(function (event) {
+            event.preventDefault();
+            var content = $('.modal-body');
+            content.empty();
+            var title = $(this).attr("title");
+            $('.modal-title').html(title);
+            content.html($(this).html());
+            $(".modal-profile").modal({ show: true });
+        });
+
+    });
+</script>

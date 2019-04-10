@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>Chi Siamo</value>
+  </data>
+  <data name="AboutUs1P" xml:space="preserve">
+    <value>&lt;p&gt;
+                        &lt;b&gt;One Million Project&lt;/b&gt; nasce grazie ad un gruppo di persone, affermate da diversi anni nel mondo degli investimenti, con lo scopo di creare una propria indipedenza finanziaria.
+                    &lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                        Grazie agli ottimi ritorni di guadagno, il gruppo ha deciso di rendere disponibili al pubblico le attività da esso affrontate.
+                    &lt;/p&gt;</value>
+  </data>
+  <data name="AboutUs2P" xml:space="preserve">
+    <value>&lt;h4&gt;Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.&lt;/h4&gt;
+                    &lt;p&gt;
+                        Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                        Ad vitae recusandae odit possimus. Quaerat cum ipsum corrupti. Odit qui asperiores ea corporis deserunt veritatis quidem expedita perferendis. Qui rerum eligendi ex doloribus quia sit. Porro rerum eum eum.
+                    &lt;/p&gt;                    
+&lt;p&gt;
+                        Ad vitae recusandae odit possimus. Quaerat cum ipsum corrupti. Odit qui asperiores ea corporis deserunt veritatis quidem expedita perferendis. Qui rerum eligendi ex doloribus quia sit. Porro rerum eum eum.
+                    &lt;/p&gt;</value>
+  </data>
+  <data name="AboutUs3P" xml:space="preserve">
+    <value>&lt;h4&gt;I nostri Businnes e le forme di guadagno&lt;/h4&gt;
+                    &lt;p&gt;
+                        Delectus alias ut incidunt delectus nam placeat in consequatur. Sed cupiditate quia ea quis. Voluptas nemo qui aut distinctio.
+                    &lt;/p&gt;</value>
+  </data>
+  <data name="AboutUsST" xml:space="preserve">
+    <value>One Million Project è un gruppo d’investimento che si focalizza su investimenti di diversa natura finanziaria.</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Tutti i diritti sono riservati</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="CapitalInvested" xml:space="preserve">
+    <value>Capitale Investito</value>
+  </data>
+  <data name="CapitalWithdrawn" xml:space="preserve">
+    <value>Capitale Prelevato</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Clienti</value>
+  </data>
+  <data name="Community" xml:space="preserve">
+    <value>Comunità</value>
+  </data>
+  <data name="CommunityST" xml:space="preserve">
+    <value>E' presente una comunità di persone che scambia e condivide nuove idee e opportunità di guadagno</value>
+  </data>
+  <data name="DiversifyEarnings" xml:space="preserve">
+    <value>Diversificazione Guadagni</value>
+  </data>
+  <data name="DiversifyEarningsST" xml:space="preserve">
+    <value>Offriamo diverse opportunità di guadagno, in modo tale da avere diverse entrate e dimunire il rischio di perdita del capitale.</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Inizia Subito</value>
+  </data>
+  <data name="NetworkPossibility" xml:space="preserve">
+    <value>Possibilità di fare rete</value>
+  </data>
+  <data name="NetworkPossibilityST" xml:space="preserve">
+    <value>Offriamo la possibilità di farti guadagnare facendo conoscere la nostra realtà ai tuoi amici</value>
+  </data>
+  <data name="OurTarget" xml:space="preserve">
+    <value>I nostri obiettivi</value>
+  </data>
+  <data name="PassiveIcome" xml:space="preserve">
+    <value>Guadagno Passivo</value>
+  </data>
+  <data name="PassiveIcomeST" xml:space="preserve">
+    <value>Offriamo la possibilità di farti guadagnare senza che tu muova un dito facendoti così risparmiare tempo</value>
+  </data>
+  <data name="Professionality" xml:space="preserve">
+    <value>Professionalità</value>
+  </data>
+  <data name="ProfessionalityST" xml:space="preserve">
+    <value>Il nostro team è composto da persone esperte nel mondo della finanza che garantiscono un certo livello di competenze ed efficienza</value>
+  </data>
+  <data name="Punctuality" xml:space="preserve">
+    <value>Puntualità</value>
+  </data>
+  <data name="PunctualityST" xml:space="preserve">
+    <value>Tutti gli utili saranno trasferiti puntualmente a tutti i soggetti interessati senza interferenze o ritardi</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sicurezza &amp; Riservatezza</value>
+  </data>
+  <data name="SecurityST" xml:space="preserve">
+    <value>Tutti i vostri dati e movimenti rimarranno secretati ed inviolati da qualsiasi entità interna od esterna al gruppo. A quest'ultimi è applicato il miglior livello di crittografia presente sul mercato</value>
+  </data>
+  <data name="Socials" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="Strategy" xml:space="preserve">
+    <value>Strategia</value>
+  </data>
+  <data name="StrategyST" xml:space="preserve">
+    <value>La qualità del progetto proviene da un analisi scrupolosa di varie opportunità di guadagno e dell’efficienza di quest’ultime.</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Transazioni</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Transparenza</value>
+  </data>
+  <data name="TransparencyST" xml:space="preserve">
+    <value>Tutte le info e le movimentazioni saranno accessibili a chiunque, per ottenere il miglior funzionamento di questo progetto verranno pubblicate, sotto previa autorizzazione, alcune vostre transazioni</value>
+  </data>
+  <data name="WhyInvestWithUs" xml:space="preserve">
+    <value>Perchè investire con noi?</value>
+  </data>
+  <data name="WhyInvestWithUsST" xml:space="preserve">
+    <value>I nostri 3 principali pilastri elencati qui sotto, organizzano ed orientano il nostro team</value>
+  </data>
+  <data name="WhyUs" xml:space="preserve">
+    <value>Perchè Noi</value>
+  </data>
+</root>

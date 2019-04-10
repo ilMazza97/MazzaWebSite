@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="AboutUs1P" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AboutUs2P" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AboutUs3P" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AboutUsST" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="CapitalInvested" xml:space="preserve">
+    <value>Capital Invested</value>
+  </data>
+  <data name="CapitalWithdrawn" xml:space="preserve">
+    <value>Capital Withdrawn</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="Community" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="CommunityST" xml:space="preserve">
+    <value>Our main objective is to create a community of people that can talk and exchange new opportunities for profit</value>
+  </data>
+  <data name="DiversifyEarnings" xml:space="preserve">
+    <value>Diversify your earnings</value>
+  </data>
+  <data name="DiversifyEarningsST" xml:space="preserve">
+    <value>We offer various earning opportunities, so as to have different revenues and to bear the risk of loss of capital</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get Started</value>
+  </data>
+  <data name="Motto" xml:space="preserve">
+    <value>We provide&lt;br&gt;solutions&lt;br&gt;for your money!</value>
+  </data>
+  <data name="NetworkPossibility" xml:space="preserve">
+    <value>Networking Possibility</value>
+  </data>
+  <data name="NetworkPossibilityST" xml:space="preserve">
+    <value>We offer the opportunity to make you gain by letting our friends know about our reality</value>
+  </data>
+  <data name="OurTarget" xml:space="preserve">
+    <value>Our Goals</value>
+  </data>
+  <data name="OurTargetST" xml:space="preserve">
+    <value>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus.</value>
+  </data>
+  <data name="PassiveIcome" xml:space="preserve">
+    <value>Passive Icome</value>
+  </data>
+  <data name="PassiveIcomeST" xml:space="preserve">
+    <value>We offer the opportunity to make you earn without you moving a finger making you save time</value>
+  </data>
+  <data name="Professionality" xml:space="preserve">
+    <value>Professionality</value>
+  </data>
+  <data name="ProfessionalityST" xml:space="preserve">
+    <value>Our team is composed by experts in the world of finance who guarantee a certain level of skills and efficiency</value>
+  </data>
+  <data name="Punctuality" xml:space="preserve">
+    <value>Punctuality</value>
+  </data>
+  <data name="PunctualityST" xml:space="preserve">
+    <value>All profits will be transferred on time to all interested parties without interference or delays</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security &amp; Privacy</value>
+  </data>
+  <data name="SecurityST" xml:space="preserve">
+    <value>All your data and movements will remain secreted and inviolate by any internal or external entity. 
+The best encryption level on the market is applied</value>
+  </data>
+  <data name="Socials" xml:space="preserve">
+    <value>Socials</value>
+  </data>
+  <data name="Strategy" xml:space="preserve">
+    <value>Strategy</value>
+  </data>
+  <data name="StrategyST" xml:space="preserve">
+    <value>The quality of the project comes from a scrupulous analysis of various opportunities for profit and efficiency of the latter</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Transactions</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Transparency</value>
+  </data>
+  <data name="TransparencyST" xml:space="preserve">
+    <value>All info and movements will be accessible to anyone; to obtain the best functioning of this project, some of your transactions will be published, subject to prior authorization</value>
+  </data>
+  <data name="WhyInvestWithUs" xml:space="preserve">
+    <value>Why Invest with us?</value>
+  </data>
+  <data name="WhyInvestWithUsST" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WhyUs" xml:space="preserve">
+    <value>Why Us</value>
+  </data>
+</root>

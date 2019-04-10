@@ -1,0 +1,67 @@
+﻿@using MazzaWebSite.Models
+@using MazzaWebSite.Resources;
+@model LoginViewModel
+@{
+    ViewBag.Title = string.Format("{0} - {1}", Account.Login, General.OMPTitle);
+}
+@*<section class="content-header">
+        <h2>@Account.Login</h2>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>@ViewContext.RouteData.Values["controller"]</a></li>
+            <li class="active">@ViewContext.RouteData.Values["action"]</li>
+        </ol>
+    </section>*@
+
+<section class="sign-in">
+    <div class="account-container">
+        <div class="signin-content">
+            <div class="signin-image">
+                @*<figure><img src="~/img/signin-image.jpg" alt="sing up image"></figure>*@
+                <figure><img src="~/img/signin.svg" alt="sing up image"></figure>
+                @Html.ActionLink(Account.CreateAccount, "Register", "Account", new { @class = "signup-image-link" })
+            </div>
+
+            <div class="signin-form">
+                <h2 class="form-title">@Account.Login</h2>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "register-form", role = "form", @id = "login-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <div class="label">
+                            <div class="label-prepend">
+                                <span class="label-text fa fa-bolt" />
+                            </div>
+                        </div>
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "input", placeholder = Account.UserName })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label">
+                            <div class="label-prepend">
+                                <span class="label-text fa fa-lock" />
+                            </div>
+                        </div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "input", placeholder = Account.Password })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "agree-term", @id = "agree-term" })
+                        @Html.LabelFor(m => m.RememberMe, Account.RememberMe, new { @class = "label-agree-term", @for = "agree-term" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            @Html.ActionLink(Account.ForgotPassword, "ForgotPassword", "Account")
+                        </div>
+                    </div>
+                    <div class="form-group form-button">
+                        <button type="submit" class="form-submit">@Account.Login</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

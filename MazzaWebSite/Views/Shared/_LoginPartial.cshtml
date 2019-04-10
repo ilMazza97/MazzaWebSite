@@ -1,0 +1,26 @@
+﻿@using MazzaWebSite.Resources
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <li class="drop-down">
+            <a href="">@Account.Profile</a>
+            <ul>
+                <li><a>@string.Format(Account.LoginHello, User.Identity.GetUserName())</a></li>
+                <li>@Html.ActionLink("Manage", "Index", "Manage")</li>
+                <li>@Html.ActionLink("Dashboard", "Dashboard", "Investor")</li>
+                <li>
+                    <div class="account-dropdown__footer">
+                        <a href="#">
+                            <i class="zmdi zmdi-power"></i>
+                            @Html.ActionLink(@Account.LogOff, "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoutForm" })
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+}
+else
+{
+    <li class="signup-voice">@Html.ActionLink(Account.SignUp, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink(Account.Login, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}

@@ -1,0 +1,198 @@
+﻿@using MazzaWebSite.Resources;
+@{
+//var selectListItem = new List<SelectListItem>{
+//        new SelectListItem{ Text=Language.English, Value="en"},
+//        new SelectListItem{ Text=Language.Italy, Value="it"},
+//        new SelectListItem{ Text=Language.Deutsch, Value="en"} };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    <meta name="viewport" content="maximum-scale=2, initial-scale=1">
+    <meta name="description" content="One Million Project, investment website">
+    <meta name="keywords" content="">
+    <meta name="author" content="Luca Mazzaferro">
+    <meta name="theme-color" content="#317EFB">
+
+    <link href="https://www.getfove.com/wp-content/uploads/2016/08/favicon.png" rel="icon preconnect" type="image/x-icon" />
+    <link rel="manifest" href="/manifest.json">
+
+    @Styles.Render("~/lib/bootstrap/css")
+    <!-- Libraries CSS Files -->
+    @Styles.Render("~/lib/font-awesome/css")
+    @Styles.Render("~/lib/animate")
+    @Styles.Render("~/lib/ionicons/css")
+
+    <!--Main Stylesheet File -->
+    @Styles.Render("~/css/css")
+
+    @Scripts.Render("~/lib/jquery")
+
+
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <div class="navbar-container">
+            @*<div class="logo">
+                    <a href="#main-content" class="scrollto"><img src="~/img/Logo.png" alt="" class="img-fluid"></a>
+                </div>*@
+
+            <nav class="main-nav d-none d-lg-block">
+                <ul>
+                    <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink(Home.AboutUs, "Index", "Home", null, null, "about", null, null)</li>
+                    <li class="drop-down">
+                        <a href="#">@Home.Business</a>
+                        <ul>
+                            <li>@Html.ActionLink(Business.CryptoProject, "CryptoProject", "Business")</li>
+                            <li>@Html.ActionLink(Business.TradingProject, "UnderCostruction", "Shared")</li>
+                            <li>@Html.ActionLink(Business.BettingProject, "UnderCostruction", "Shared")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink(Home.WhyUs, "Index", "Home", null, null, "why-us", null, null)</li>
+                    <li>@Html.ActionLink(Home.Socials, "Index", "Home", null, null, "social-slider", null, null)</li>
+
+                    @Html.Partial("_LoginPartial")
+                </ul>
+
+            </nav>
+
+        </div>
+    </header>
+    @RenderBody()
+    <!--==========================
+      Footer
+    ============================-->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6  footer-info">
+                        <h3>@General.OMPTitle</h3>
+                        <p>@General.FooterComment</p>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6  footer-links">
+                        <h3>@Account.UsefulLinks</h3>
+
+                        <ul>
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink(Home.AboutUs, "Index", "Home", null, null, "about", null, null)</li>
+                            <li>@Html.ActionLink(Home.WhyUs, "Index", "Home", null, null, "why-us", null, null)</li>
+                            <li>@Html.ActionLink("Terms of service", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Privacy policy", "Index", "Home")</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>@Account.ConnectWhitUs</h3>
+
+                        <div class="social-links">
+                            <div class="social-button">
+                                <a href="https://www.facebook.com/pg/One-Million-Project-345010312773091" aria-label="Facebook" class="fa fa-facebook"></a><p>Facebook</p>
+                            </div>
+                            <div class="social-button">
+                                <a href="https://www.instagram.com/1million.project/" aria-label="Instagram" class="fa fa-instagram"></a><p>Instagram</p>
+                            </div>
+                            <div class="social-button">
+                                <a href="https://www.youtube.com/channel/UCihjDqgdTndQ-NX4I2_B2xw" aria-label="Youtube" class="fa fa-youtube"></a><p>YouTube</p>
+                            </div>
+                            <div class="social-button">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <a href="https://telegram.me/OneMillionAdminbot" aria-label="Telegram" class="fa fa-telegram"></a><p>Telegram</p>
+                                }
+                                else
+                                {
+                                    <a href="" onclick="return alert('@Bot.DoLogin')" aria-label="Telegram" class="fa fa-telegram"></a><p>Telegram</p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-language">
+                        <h3>@Account.ChangeLanguage</h3>
+                        @*@Html.DropDownList("DropDownProductList", selectListItem, "", new { @id = "setCulture", @class = "form-control" })*@
+                        <div class="language-links">
+                            <div class="language-button">
+                                <a class="flag-icon flag-icon-it"></a><p>Italiano</p>
+                            </div>
+                            <div class="language-button">
+                                <a class="flag-icon flag-icon-en"></a><p>English</p>
+                            </div>
+                            <div class="language-button">
+                                <a class="flag-icon flag-icon-de"></a><p>Deutsch</p>
+                            </div>
+                            <div class="language-button">
+                                <a class="flag-icon flag-icon-es"></a><p>Français</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; @DateTime.Now.Year Copyright - <strong>@Html.ActionLink("One Million Project", "Index", "Home")</strong>. @Home.AllRightsReserved
+            </div>
+        </div>
+    </footer><!-- #footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+    <div id="preloader"></div>
+
+    <!-- JavaScript Libraries -->
+    @Scripts.Render("~/lib/mobile-nav")
+    @Scripts.Render("~/lib/easing")
+    @Scripts.Render("~/lib/wow")
+    @Scripts.Render("~/lib/waypoints")
+    @Scripts.Render("~/lib/counterup")
+
+    @Scripts.Render("~/js")
+
+
+    <script type="text/javascript">
+        function init() {
+            var imgDefer = document.getElementsByTagName('img');
+            for (var i = 0; i < imgDefer.length; i++) {
+                if (imgDefer[i].getAttribute('data-src')) {
+                    imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
+                }
+            }
+
+        }
+
+        window.onload = init;
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/js/pwabuilder-sw.js')
+                .then(function () {
+                    console.log('Service Worker Registered');
+                });
+        }
+
+        $(document).on("click", ".language-button", function () {
+            var language = $(this).text();
+            $.ajax({
+                url: "/Home/SetCulture",
+                data: { "culture": language },
+                success: function () {
+                    location.reload(true);
+                    window.scrollTo(0, 0);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
