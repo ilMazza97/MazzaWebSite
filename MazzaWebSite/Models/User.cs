@@ -37,6 +37,10 @@ namespace MazzaWebSite.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+
+        public bool GoogleAuthenticator { get; set; }
+
         //public virtual ICollection<CommissionPercentage> CommissionPercentageEntity { get; set; }
         public virtual ICollection<Deposit> Deposits { get; set; }
         public virtual ICollection<TelegramAccount> TelegramAccounts { get; set; }

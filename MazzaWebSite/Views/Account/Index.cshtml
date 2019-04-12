@@ -1,0 +1,175 @@
+﻿@using Microsoft.AspNet.Identity;
+@using MazzaWebSite.Models;
+@using MazzaWebSite.Resources;
+@model ManageViewModel
+@{
+    ViewBag.Title = string.Format("{0} - {1}", General.Manage, General.OMPTitle);
+    var user = Model.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId<int>());
+}
+@if (!Request.IsAuthenticated)
+{
+    Response.Redirect("~/Account/Login");
+}
+else
+{
+    <br />
+    <br />
+    <br />
+
+    <div id="main-wrapper">
+        <div class="page-wrapper" style="min-height: 465px;">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Profil</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12"></div>
+                    <div class="col-lg-4 col-xlg-4 col-md-6">
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white">@Manage.Informations</h4>
+                            </div>
+                            <div class="card-body">
+                                <center class="m-t-30">
+                                    <h1 class="card-title m-t-10">@user.UserName</h1>
+                                    <h6 class="card-subtitle"></h6>
+                                </center>
+                            </div>
+                            <div>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <small class="text-muted">@Account.AffiliateLink</small>
+                                <h6>@Path.Combine(Request.Url.Host, user.UserName).Replace("\\", "/")</h6>
+                                <small class="text-muted p-t-30 db">@Account.Email</small>
+                                <h6>@user.Email</h6>
+                                <small class="text-muted p-t-30 db">@Account.FirstName</small>
+                                <h6>@user.FirstName</h6>
+                                <small class="text-muted p-t-30 db">@Account.LastName</small>
+                                <h6>@user.LastName</h6>
+                                <small class="text-muted p-t-30 db">@Account.Sponsor</small>
+                                <h6>@Model.Users.FirstOrDefault(m => m.Id == user.ReferentId).UserName</h6>
+                                <small class="text-muted p-t-30 db">@Manage.EmailConfirmed</small>
+                                <h6>
+                                    @if (user.EmailConfirmed)
+                                    {
+                                        <span class="text-success">@General.Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="" onclick="showCancelOrderForm()" aria-label="" class="">
+                                            <span class="text-danger">@General.No</span>
+                                        </a>
+                                    }
+                                </h6>
+                                <small class="text-muted p-t-30 db">@Manage.AccountStatus</small>
+                                <h6>
+                                    @if (user.Deposits.Any())
+                                    {
+                                        <span class="text-success">@Manage.Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger">@Manage.NoActive</span>
+                                    }
+                                </h6>
+                                <small class="text-muted p-t-30 db">@Manage.GoogleAuth</small>
+                                <h6>
+                                    @if (user.GoogleAuthenticator)
+                                    {
+                                        <span class="text-success">@Manage.Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success">@Manage.Active</span>
+                                        <a href="" id="prova" class="btn btn-success"> <i class="fa fa-sync-alt"></i></a>
+                                    }
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xlg-6 col-md-6">
+
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white">@Account.ChangePassword</h4>
+                            </div>
+                            <div class="card card-body">
+                                @using (Ajax.BeginForm("ChangePassword", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "notificationAlert", OnFailure = "notificationAlert" }, new { Id = "changePasswordForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.OldPassword, Account.OldPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        <div class="col-sm-9">
+                                            @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
+
+                                            @*<input type="password" pattern="[A-Za-z\d!#-_=+*$]{7,20}" class="form-control" name="previous" required="">*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.NewPassword, Account.NewPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        <div class="col-sm-9">
+                                            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.ConfirmPassword, Account.ConfirmPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        <div class="col-sm-9">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-0">
+                                        <div class="offset-sm-3 col-sm-9">
+                                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-t-10">@Manage.Change</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="card card-outline-warning">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white"><i style="color:#FFFFFF;" class="fa fa-exclamation-triangle fa-2x"></i> Change payment method and confirm your email</h4>
+                            </div>
+                            <div class="card card-body">
+                                @using (Ajax.BeginForm("Prova", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "notificationAlert", OnFailure= "notificationAlert" }, new { Id = "editPaymentForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.ConfirmPassword, "Paypal", new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Value = "lmazza@gmail.com", placeholder = "lmazza@gmail.com" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.ConfirmPassword, "Bitcoin", new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Value = "assdfdsf25f32fsd3f2sd5", placeholder = "assdfdsf25f32fsd3f2sd5" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-0">
+                                        <div class="offset-sm-3 col-sm-9">
+                                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-t-10">@Manage.Change</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+}
+@*<img src="@ViewBag.ImageUrl" />*@

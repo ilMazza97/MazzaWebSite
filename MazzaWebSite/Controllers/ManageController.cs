@@ -1,4 +1,6 @@
-﻿using MazzaWebSite.Models;
+﻿using Google.Authenticator;
+using MazzaWebSite.Identity;
+using MazzaWebSite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -6,13 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MazzaWebSite.Identity;
 
 namespace MazzaWebSite.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        MazzaDbContext db = new MazzaDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -28,57 +30,55 @@ namespace MazzaWebSite.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
+            get => _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            private set => _signInManager = value;
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
         }
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+            TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
+            var userId = User.Identity.GetUserId<int>();
+            var setupInfo = tfa.GenerateSetupCode("One Million Project", db.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 300, 300);
 
-            var userId = User.Identity.GetUserId();
-            var userIdInt= User.Identity.GetUserId<int>();
-            var model = new IndexViewModel
+            string qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+            string manualEntrySetupCode = setupInfo.ManualEntryKey;
+            ViewBag.ImageUrl = qrCodeImageUrl;
+            ViewBag.Text = manualEntrySetupCode;
+
+            //var userId = User.Identity.GetUserId();
+            //var userIdInt= User.Identity.GetUserId<int>();
+            //var model = new IndexViewModel
+            //{
+            //    HasPassword = HasPassword(),
+            //    PhoneNumber = await UserManager.GetPhoneNumberAsync(userIdInt),
+            //    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userIdInt),
+            //    Logins = await UserManager.GetLoginsAsync(userIdInt),
+            //    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+            //};
+            ManageViewModel model = new ManageViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userIdInt),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userIdInt),
-                Logins = await UserManager.GetLoginsAsync(userIdInt),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                Users = db.Users.ToList()
             };
             return View(model);
         }
-
-        //
-        // POST: /Manage/RemoveLogin
         [HttpPost]
+        public ActionResult Prova()
+        {
+
+            return Json(new { success = true, Status = "warning", Message ="Cazzo tette culo figa" });
+        }
+
+       //
+       // POST: /Manage/RemoveLogin
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
@@ -100,35 +100,45 @@ namespace MazzaWebSite.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<ActionResult> ChangePassword(ManageViewModel model)
+        {
+            string message = null;
+            string status = null;
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.Where(m => m.Errors.Count > 0))
+                    message += string.Concat(error.Errors[0].ErrorMessage, "\r\n");
+            }
+            else
+            {
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    status = Enums.Success;
+                    message = "Password cambiata con successo";
+                }
+            }
+            return Json(new { success = true, Status = status ?? Enums.Danger, Message = message });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePaymentMethod(ManageViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                RedirectToAction("Index");
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-            AddErrors(result);
-            return View(model);
+
+            return RedirectToAction("Index");
         }
 
         //
@@ -224,13 +234,7 @@ namespace MazzaWebSite.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
@@ -243,21 +247,13 @@ namespace MazzaWebSite.Controllers
         private bool HasPassword()
         {
             var user = UserManager.FindById(User.Identity.GetUserId<int>());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
+            return user != null ? user.PasswordHash != null : false;
         }
 
         private bool HasPhoneNumber()
         {
             var user = UserManager.FindById(User.Identity.GetUserId<int>());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-            return false;
+            return user != null ? user.PhoneNumber != null : false;
         }
 
         public enum ManageMessageId

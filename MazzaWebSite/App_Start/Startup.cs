@@ -1,10 +1,14 @@
-﻿using MazzaWebSite.Identity;
+﻿using Hangfire;
+using Hangfire.FluentNHibernateStorage;
+using MazzaWebSite.Identity;
+using MazzaWebSite.Job;
 using MazzaWebSite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Snork.FluentNHibernateTools;
 using System;
 
 namespace MazzaWebSite
@@ -33,35 +37,35 @@ namespace MazzaWebSite
                     validateInterval: TimeSpan.FromMinutes(30),
                     regenerateIdentityCallback: (manager, user) =>
                         user.GenerateUserIdentityAsync(manager),
-                    getUserIdCallback: (id) => (id.GetUserId<int>()))
+                    getUserIdCallback: (id) => id.GetUserId<int>())
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-         
 
-            //var options = new FluentNHibernateStorageOptions
-            //{
-            //    QueuePollInterval = TimeSpan.FromSeconds(15),
-            //    JobExpirationCheckInterval = TimeSpan.FromHours(1),
-            //    CountersAggregateInterval = TimeSpan.FromMinutes(5),
-            //    UpdateSchema = true,
-            //    DashboardJobListLimit = 50000,
-            //    TransactionTimeout = TimeSpan.FromMinutes(1),
-            //    DefaultSchema = null // use database provider's default schema
-            //};
-            //var storage = FluentNHibernateStorageFactory.For(ProviderTypeEnum.MySQL, "JobsDbConnection", options);
 
-            //GlobalConfiguration.Configuration.UseStorage(storage);
+            var options = new FluentNHibernateStorageOptions
+            {
+                QueuePollInterval = TimeSpan.FromSeconds(15),
+                JobExpirationCheckInterval = TimeSpan.FromHours(1),
+                CountersAggregateInterval = TimeSpan.FromMinutes(5),
+                UpdateSchema = true,
+                DashboardJobListLimit = 50000,
+                TransactionTimeout = TimeSpan.FromMinutes(1),
+                DefaultSchema = null // use database provider's default schema
+            };
+            var storage = FluentNHibernateStorageFactory.For(ProviderTypeEnum.MySQL, "JobsDbConnection", options);
 
-            //app.UseHangfireServer();
-            //app.UseHangfireDashboard("/Hangfire", new DashboardOptions
-            //{
-            //    Authorization = new[]
-            //    {
-            //        new MazzaAuthorizationFilter()
-            //    }
-            //});
-            //HangfireJobManager.AddHangfireJob();
+            GlobalConfiguration.Configuration.UseStorage(storage);
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard("/Hangfire", new DashboardOptions
+            {
+                Authorization = new[]
+                {
+                    new MazzaAuthorizationFilter()
+                }
+            });
+            HangfireJobManager.AddHangfireJob();
         }
     }
 }

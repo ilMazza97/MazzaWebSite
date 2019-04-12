@@ -128,7 +128,16 @@ possibile, migliorando la qualità delle loro vite.</value>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Profilo</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="OMPTitle" xml:space="preserve">
     <value>One Million Project</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Si</value>
   </data>
 </root>

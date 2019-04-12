@@ -69,6 +69,9 @@
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Authenticator, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAuthenticator.1.2.1\lib\net45\Google.Authenticator.dll</HintPath>
+    </Reference>
     <Reference Include="Hangfire.AspNetCore, Version=1.6.23.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.AspNetCore.1.6.23\lib\net451\Hangfire.AspNetCore.dll</HintPath>
     </Reference>
@@ -327,8 +330,8 @@
     <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.1\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
@@ -474,6 +477,7 @@
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageLoginsViewModel.cs" />
+    <Compile Include="Models\ManageViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\SetPasswordViewModel.cs" />
@@ -579,6 +583,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Manage.it.Designer.cs">
+      <DependentUpon>Manage.it.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Manage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Manage.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="TelegramClass\ButtonType.cs" />
     <Compile Include="TelegramClass\Command.cs" />
@@ -587,11 +601,9 @@
     <Compile Include="TelegramClass\TelegramBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConfigTransform.proj">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Connected Services\EmailVerify\configuration91.svcinfo" />
     <None Include="Connected Services\EmailVerify\configuration.svcinfo" />
+    <Content Include="content\bootstrap-dialog.css" />
     <Content Include="img\1.jpg" />
     <Content Include="img\2.jpg" />
     <Content Include="img\3.jpg" />
@@ -615,10 +627,14 @@
     <Content Include="img\signin.svg" />
     <Content Include="img\signup-image.jpg" />
     <Content Include="img\signup.svg" />
+    <Content Include="js\notify.min.js" />
+    <Content Include="js\wb-function.js" />
     <Content Include="js\main.js" />
     <Content Include="js\pwabuilder-sw.js" />
     <Content Include="lib\animate\animate.min.css" />
-    <Content Include="lib\bootstrap\bootstrap.css" />
+    <Content Include="lib\bootstrap\css\bootstrap.css" />
+    <Content Include="lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="lib\bootstrap\js\bootstrap-dialog.min.js" />
     <Content Include="lib\counterup\counterup.min.js" />
     <Content Include="lib\easing\easing.min.js" />
     <Content Include="lib\font-awesome\css\font-awesome.min.css" />
@@ -635,22 +651,43 @@
     <Content Include="lib\ionicons\fonts\ionicons.eot" />
     <Content Include="lib\ionicons\fonts\ionicons.ttf" />
     <Content Include="lib\ionicons\fonts\ionicons.woff" />
-    <Content Include="libman.json" />
     <Content Include="manifest.json" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="content\bootstrap-dialog.less" />
     <None Include="Properties\PublishProfiles\onemillionproject - Web Deploy.pubxml" />
+    <Content Include="Scripts\bootstrap-dialog.min.js" />
+    <Content Include="Scripts\bootstrap-notify.js" />
+    <Content Include="Scripts\bootstrap-notify.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -663,9 +700,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Business\CryptoProject.cshtml" />
     <Content Include="Views\Investor\Dashboard.cshtml" />
@@ -673,6 +708,8 @@
     <Content Include="Web.Base.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -737,6 +774,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Manage.it.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Manage.it.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Manage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Manage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -759,7 +804,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(MSBuildToolsVersion)\WebApplications\Microsoft.WebApplication.targets"/>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(MSBuildToolsVersion)\WebApplications\Microsoft.WebApplication.targets" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
@@ -786,12 +831,12 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>  
-<Target Name="BeforeBuild">
-    <Copy SourceFiles="Web.Base.config" DestinationFiles="Web.config"/>
+  </Target>
+  <Target Name="BeforeBuild">
+    <Copy SourceFiles="Web.Base.config" DestinationFiles="Web.config" />
     <TransformXml Source="Web.config" Transform="Web.Debug.config" Destination="Web.config" Condition="Exists('Web.Debug.config')" />
-</Target>
-<!-- <Target Name="AfterBuild">
+  </Target>
+  <!-- <Target Name="AfterBuild">
     <Copy SourceFiles="Web.Base.config" DestinationFiles="Web.config"/>
 </Target> -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

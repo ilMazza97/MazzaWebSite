@@ -117,26 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Enter" xml:space="preserve">
-    <value>Enter!</value>
+  <data name="AccountStatus" xml:space="preserve">
+    <value>Account Status</value>
   </data>
-  <data name="FooterComment" xml:space="preserve">
-    <value>We believe that decentralization, cryptocurrency and blockchain are the future. Our mission is to make them accessible to the maximum number of people
-possible, improving the quality of their lives.</value>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
   </data>
-  <data name="Manage" xml:space="preserve">
-    <value>Manage</value>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Email Confirmed</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
+  <data name="GoogleAuth" xml:space="preserve">
+    <value>Google Authenticator</value>
   </data>
-  <data name="OMPTitle" xml:space="preserve">
-    <value>One Million Project</value>
+  <data name="Informations" xml:space="preserve">
+    <value>Informations</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="NoActive" xml:space="preserve">
+    <value>Not Active</value>
   </data>
 </root>

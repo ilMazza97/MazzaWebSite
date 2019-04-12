@@ -21,8 +21,7 @@ namespace MazzaWebSite.Models
                                            .Ignore(c => c.LockoutEnabled)
                                            .Ignore(c => c.LockoutEndDateUtc)
                                            .Ignore(c => c.PhoneNumberConfirmed)
-                                           .Ignore(c => c.TwoFactorEnabled)
-                                           .Ignore(c => c.EmailConfirmed);
+                                           .Ignore(c => c.TwoFactorEnabled);
         }
 
         public static ApplicationDbContext Create()

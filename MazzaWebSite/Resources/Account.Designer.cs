@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MazzaWebSite.Resources
-{
-
-
+namespace MazzaWebSite.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -61,6 +61,15 @@ namespace MazzaWebSite.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Affiliate Link.
+        /// </summary>
+        public static string AffiliateLink {
+            get {
+                return ResourceManager.GetString("AffiliateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must enter your age.
         /// </summary>
         public static string AgeErrorMessage {
@@ -79,20 +88,20 @@ namespace MazzaWebSite.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chage Password.
-        /// </summary>
-        public static string ChagePassword {
-            get {
-                return ResourceManager.GetString("ChagePassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Change Language.
         /// </summary>
         public static string ChangeLanguage {
             get {
                 return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chage Password.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
             }
         }
         
@@ -345,6 +354,15 @@ namespace MazzaWebSite.Resources
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sponsor.
+        /// </summary>
+        public static string Sponsor {
+            get {
+                return ResourceManager.GetString("Sponsor", resourceCulture);
             }
         }
         

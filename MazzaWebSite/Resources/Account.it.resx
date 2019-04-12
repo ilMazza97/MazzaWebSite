@@ -195,7 +195,7 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Conferma Password</value>
   </data>
-  <data name="ChagePassword" xml:space="preserve">
+  <data name="ChangePassword" xml:space="preserve">
     <value>Cambia Password</value>
   </data>
   <data name="ChangeYourPassword" xml:space="preserve">
@@ -224,5 +224,11 @@
   </data>
   <data name="UsefulLinks" xml:space="preserve">
     <value>Link Utili</value>
+  </data>
+  <data name="Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
+  </data>
+  <data name="AffiliateLink" xml:space="preserve">
+    <value>Link Affiliazione</value>
   </data>
 </root>

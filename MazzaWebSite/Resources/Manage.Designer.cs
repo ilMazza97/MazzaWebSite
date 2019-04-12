@@ -22,14 +22,14 @@ namespace MazzaWebSite.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class General {
+    public class Manage {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal General() {
+        internal Manage() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MazzaWebSite.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MazzaWebSite.Resources.General", typeof(General).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MazzaWebSite.Resources.Manage", typeof(Manage).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,66 +61,65 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter!.
+        ///   Looks up a localized string similar to Account Status.
         /// </summary>
-        public static string Enter {
+        public static string AccountStatus {
             get {
-                return ResourceManager.GetString("Enter", resourceCulture);
+                return ResourceManager.GetString("AccountStatus", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We believe that decentralization, cryptocurrency and blockchain are the future. Our mission is to make them accessible to the maximum number of people
-        ///possible, improving the quality of their lives..
+        ///   Looks up a localized string similar to Active.
         /// </summary>
-        public static string FooterComment {
+        public static string Active {
             get {
-                return ResourceManager.GetString("FooterComment", resourceCulture);
+                return ResourceManager.GetString("Active", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to Change.
         /// </summary>
-        public static string Home {
+        public static string Change {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage.
+        ///   Looks up a localized string similar to Email Confirmed.
         /// </summary>
-        public static string Manage {
+        public static string EmailConfirmed {
             get {
-                return ResourceManager.GetString("Manage", resourceCulture);
+                return ResourceManager.GetString("EmailConfirmed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Google Authenticator.
         /// </summary>
-        public static string No {
+        public static string GoogleAuth {
             get {
-                return ResourceManager.GetString("No", resourceCulture);
+                return ResourceManager.GetString("GoogleAuth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One Million Project.
+        ///   Looks up a localized string similar to Informations.
         /// </summary>
-        public static string OMPTitle {
+        public static string Informations {
             get {
-                return ResourceManager.GetString("OMPTitle", resourceCulture);
+                return ResourceManager.GetString("Informations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
+        ///   Looks up a localized string similar to Not Active.
         /// </summary>
-        public static string Yes {
+        public static string NoActive {
             get {
-                return ResourceManager.GetString("Yes", resourceCulture);
+                return ResourceManager.GetString("NoActive", resourceCulture);
             }
         }
     }

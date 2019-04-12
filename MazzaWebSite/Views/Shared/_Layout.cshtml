@@ -30,9 +30,8 @@
     <!--Main Stylesheet File -->
     @Styles.Render("~/css/css")
 
-    @Scripts.Render("~/lib/jquery")
-
-
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/jqueryval")
 </head>
 <body>
     <header id="header" class="fixed-top">
@@ -152,6 +151,7 @@
     <div id="preloader"></div>
 
     <!-- JavaScript Libraries -->
+    @Scripts.Render("~/Scripts/bootstrap")
     @Scripts.Render("~/lib/mobile-nav")
     @Scripts.Render("~/lib/easing")
     @Scripts.Render("~/lib/wow")

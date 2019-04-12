@@ -1,4 +1,5 @@
-﻿using MazzaWebSite;
+﻿using Google.Authenticator;
+using MazzaWebSite.Identity;
 using MazzaWebSite.Models;
 using MazzaWebSite.Resources;
 using Microsoft.AspNet.Identity;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MazzaWebSite.Identity;
 using static MazzaWebSite.Models.Enums;
 
 namespace MazzaWebSite.Controllers
@@ -52,6 +52,33 @@ namespace MazzaWebSite.Controllers
             {
                 _userManager = value;
             }
+        }
+        public ActionResult Index()
+        {
+            TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
+            var userId = User.Identity.GetUserId<int>();
+            var setupInfo = tfa.GenerateSetupCode("One Million Project", db.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 300, 300);
+
+            string qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+            string manualEntrySetupCode = setupInfo.ManualEntryKey;
+            ViewBag.ImageUrl = qrCodeImageUrl;
+            ViewBag.Text = manualEntrySetupCode;
+
+            //var userId = User.Identity.GetUserId();
+            //var userIdInt= User.Identity.GetUserId<int>();
+            //var model = new IndexViewModel
+            //{
+            //    HasPassword = HasPassword(),
+            //    PhoneNumber = await UserManager.GetPhoneNumberAsync(userIdInt),
+            //    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userIdInt),
+            //    Logins = await UserManager.GetLoginsAsync(userIdInt),
+            //    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+            //};
+            ManageViewModel model = new ManageViewModel
+            {
+                Users = db.Users.ToList()
+            };
+            return View(model);
         }
 
         //
@@ -173,7 +200,47 @@ namespace MazzaWebSite.Controllers
             }
             return View(model);
         }
-  
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ManageViewModel model)
+        {
+            string message = null;
+            string status = null;
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.Where(m => m.Errors.Count > 0))
+                    message += string.Concat(error.Errors[0].ErrorMessage, "\r\n");
+            }
+            else
+            {
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    status = Success;
+                    message = "Password cambiata con successo";
+                }
+            }
+            return Json(new { success = true, Status = status ?? Danger, Message = message });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePaymentMethod(ManageViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
@@ -196,7 +263,7 @@ namespace MazzaWebSite.Controllers
                 if (user == null)
                 {
                     ViewBag.UserNotFound = true;
-                    return View("ForgotPasswordConfirmation");
+                    return View();
                 }
                 
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -210,19 +277,11 @@ namespace MazzaWebSite.Controllers
                     Culture = _cookie.GetCookieLanguage(Request,Response).Value
                 };
                 _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.ForgotPassword, emailEntity, db);
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
         }
 
         //
@@ -248,52 +307,42 @@ namespace MazzaWebSite.Controllers
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Home");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.NewPassword);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
             return View();
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        if (_userManager != null)
-        //        {
-        //            _userManager.Dispose();
-        //            _userManager = null;
-        //        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
 
-        //        if (_signInManager != null)
-        //        {
-        //            _signInManager.Dispose();
-        //            _signInManager = null;
-        //        }
-        //    }
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+            }
 
-        //    base.Dispose(disposing);
-        //}
+            base.Dispose(disposing);
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

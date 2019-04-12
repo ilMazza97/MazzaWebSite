@@ -19,9 +19,12 @@ namespace MazzaWebSite.Controllers
         {
             _cookie = new Cookie();
         }
-        
+
         public ActionResult Index(string @ref)
         {
+            //byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
+            //byte[] key = Guid.NewGuid().ToByteArray();
+            //string token = Convert.ToBase64String(time.Concat(key).ToArray());
             //Paypal.SendMoney();
 
             //GetInstragramUrlImage(out List<string> instagramUrlImage);
@@ -70,7 +73,7 @@ namespace MazzaWebSite.Controllers
                 Expires = DateTime.Now.AddMonths(3),
                 Value = culture
             };
-            HttpContext.Response.Cookies.Add(cookie);    
+            HttpContext.Response.Cookies.Add(cookie);
         }
 
 

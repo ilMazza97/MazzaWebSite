@@ -1,8 +1,8 @@
-﻿using MazzaWebSite;
-using MazzaWebSite.Models;
+﻿using MazzaWebSite.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
@@ -17,7 +17,7 @@ namespace MazzaWebSite.TelegramClass
 {
     public class TelegramBase : Controller, ITelegramBase
     {
-        private static readonly TelegramBotClient Bot = new TelegramBotClient("830059074:AAHtaCPRk5CrAKBGyf_9UQcIknBpN7mpgiM");
+        private static readonly TelegramBotClient Bot = new TelegramBotClient(ConfigurationManager.AppSettings["TelegramBotKey"]);
         //private static readonly TelegramBotClient Bot = new TelegramBotClient("695618271:AAG7Fi5Yhr4mp972vslmr6zya9xNh-BMrio"); //Stage
 
 
