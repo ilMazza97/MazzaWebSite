@@ -3,10 +3,8 @@
 @using MazzaWebSite.Resources;
 @model ManageViewModel
 @{
-                /**/
-
-                ViewBag.Title = string.Format("{0} - {1}", General.Manage, General.OMPTitle);
-                var user = Model.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId<int>());
+ViewBag.Title = string.Format("{0} - {1}", General.Manage, General.OMPTitle);
+var user = Model.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId<int>());
 }
 @if (!Request.IsAuthenticated)
 {

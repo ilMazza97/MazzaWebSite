@@ -4,6 +4,6 @@ namespace MazzaWebSite
 {
     public interface ISendEmail
     {
-        void SendEmailFromTemplate(Enums.NotificationTemplateTypes notificationTemplateTypeId,EmailEntity emailEntity,MazzaDbContext db);
+        void SendEmailFromTemplate(Enums.NotificationTemplateTypes notificationTemplateTypeId,EmailEntity emailEntity);
     }
 }

@@ -7,13 +7,15 @@ namespace MazzaWebSite.Controllers
 {
     public class InvestorController : Controller
     {
-        MazzaDbContext db = new MazzaDbContext();
         public ActionResult Dashboard()
         {
-            List<InvestmentReport> model = db.Database
+            using (var dbContext = new MazzaDbContext())
+            {
+                List<InvestmentReport> model = dbContext.Database
                 .SqlQuery<InvestmentReport>(string.Format("CALL spREP_InvestmentReport ({0})", User.Identity.GetUserId<int>()))
                 .ToList();
-            return Request.IsAuthenticated && model != null ? View(model) : (ActionResult)RedirectToAction("Index", "Home");
+                return Request.IsAuthenticated && model != null ? View(model) : (ActionResult)RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult Prova()
         {

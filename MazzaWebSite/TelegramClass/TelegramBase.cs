@@ -18,19 +18,15 @@ namespace MazzaWebSite.TelegramClass
     public class TelegramBase : Controller, ITelegramBase
     {
         private static readonly TelegramBotClient Bot = new TelegramBotClient(ConfigurationManager.AppSettings["TelegramBotKey"]);
-        //private static readonly TelegramBotClient Bot = new TelegramBotClient("695618271:AAG7Fi5Yhr4mp972vslmr6zya9xNh-BMrio"); //Stage
 
-
-        private static MazzaDbContext db;
         private List<int> messageToRemove = new List<int>();
 
         public TelegramBase()
         {
-            
+
         }
-        public void InsertBot(MazzaDbContext database)
+        public void InsertBot()
         {
-            db = database;
             Bot.StartReceiving();
             Bot.OnMessage += StartMessage;
             Bot.OnMessageEdited += StartMessage;
@@ -41,7 +37,6 @@ namespace MazzaWebSite.TelegramClass
         {
             try
             {
-                var a = db.TelegramGroups.FirstOrDefault();
                 if (e.Message.Chat.Type == ChatType.Private)
                 {
                     if (Login(e))
@@ -67,50 +62,53 @@ namespace MazzaWebSite.TelegramClass
             }
             catch (Exception ex)
             {
-                SendEmail.Send("lmazzaferro6@gmail.com", "Errore Telegram Bot", ex.Message+ex.InnerException+ex.Data+ex.Source, db);
+                SendEmail.Send("lmazzaferro6@gmail.com", "Errore Telegram Bot", ex.Message + ex.InnerException + ex.Data + ex.Source);
             }
         }
 
         private bool Login(MessageEventArgs e)
         {
-            if (db.TelegramAccounts.Any(u => u.UserChatId == e.Message.From.Id))
-                return true;
+            using (var dbContext = new MazzaDbContext())
+            {
+                if (dbContext.TelegramAccounts.Any(u => u.UserChatId == e.Message.Chat.Id))
+                    return true;
 
-            if (e.Message.Chat.Username == string.Empty)
-            {
-                Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.UserNameEmpty);
-                return false;
-            }
-            if(db.TelegramAccounts.Any(t=>t.TelegramUserName.Equals(e.Message.Chat.Username)))
-                   
-            messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.DoLogin).Result.MessageId);
-            messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InsertUsername).Result.MessageId);
-            var userName = GetText(e);
-            if (db.TelegramAccounts.Any(t => t.TelegramUserName.Equals(userName)))
-            {
-                SendEmail.Send("lmazzaferro6@gmail.com", "Furbetto "+userName, e.Message.From.Id + e.Message.From.Username, db);
-                return false;
-            }
-            while (!db.Users.Any(u => u.UserName.Equals(userName)))
-            {
-                messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InvalidUsername).Result.MessageId);
-                userName = GetText(e);
-            }
-            
-            //messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, "Insert your password, please").Result.MessageId);
-            //var password = GetText(e);
+                if (e.Message.Chat.Username == string.Empty)
+                {
+                    Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.UserNameEmpty);
+                    return false;
+                }
 
-            var result = true;// SignInManager.PasswordSignInAsync(userName, password,false,false);
-            if (result)
-            {
-                int userAccountId = db.Users.Where(u => u.UserName.Equals(userName)).SingleOrDefault().Id;
-                db.TelegramAccounts.Add(new TelegramAccount {
-                    TelegramUserName = e.Message.Chat.Username,
-                    UserChatId = (int)e.Message.Chat.Id,
-                    UserId = userAccountId,
-                    InsertDate = DateTime.UtcNow
-                });
-                db.SaveChanges();
+                messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.DoLogin).Result.MessageId);
+                messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InsertUsername).Result.MessageId);
+                var userName = GetText(e);
+                if (dbContext.TelegramAccounts.Any(t => t.TelegramUserName.Equals(userName)))
+                {
+                    SendEmail.Send("lmazzaferro6@gmail.com", "Furbetto " + userName, e.Message.From.Id + e.Message.From.Username);
+                    return false;
+                }
+                while (!dbContext.Users.Any(u => u.UserName.Equals(userName)))
+                {
+                    messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InvalidUsername).Result.MessageId);
+                    userName = GetText(e);
+                }
+
+                //messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, "Insert your password, please").Result.MessageId);
+                //var password = GetText(e);
+
+                var result = true;// SignInManager.PasswordSignInAsync(userName, password,false,false);
+                if (result)
+                {
+                    var userAccountId = dbContext.Users.FirstOrDefault(u => u.UserName.Equals(userName)).Id;
+                    dbContext.TelegramAccounts.Add(new TelegramAccount
+                    {
+                        TelegramUserName = e.Message.Chat.Username,
+                        UserChatId = (int)e.Message.Chat.Id,
+                        UserId = userAccountId,
+                        InsertDate = DateTime.UtcNow
+                    });
+                    dbContext.SaveChanges();
+                }
             }
             Welcome(e);
             return true;
@@ -118,12 +116,12 @@ namespace MazzaWebSite.TelegramClass
 
         private void Welcome(MessageEventArgs e)
         {
-            foreach (int messageid in messageToRemove)
+            foreach (var messageid in messageToRemove)
             {
-                Bot.DeleteMessageAsync(e.Message.Chat.Id,messageid);
+                Bot.DeleteMessageAsync(e.Message.Chat.Id, messageid);
             }
             Bot.SendTextMessageAsync(e.Message.Chat.Id, string.Format(Resources.Bot.Welcome, e.Message.Chat.Username));
-
+            Thread.Sleep(1000);
         }
 
         private string GetText(MessageEventArgs e)
@@ -132,8 +130,7 @@ namespace MazzaWebSite.TelegramClass
             var date = DateTime.UtcNow;
             while (pippo && !(DateTime.UtcNow.Subtract(date).TotalMinutes > 1))
             {
-                var update = Bot.GetUpdatesAsync(0).Result.LastOrDefault(u => u.Message.Date > date && u.Message.Chat.Id==e.Message.Chat.Id);
-
+                var update = Bot.GetUpdatesAsync(0).Result.LastOrDefault(u => u.Message.Date > date && u.Message.Chat.Id == e.Message.Chat.Id);
                 if (update != null)
                 {
                     messageToRemove.Add(update.Message.MessageId);
@@ -159,7 +156,7 @@ namespace MazzaWebSite.TelegramClass
                 new []
                 {
                     InlineKeyboardButton.WithCallbackData(Resources.Bot.Groups)
-            
+
                 }
             });
             Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.ChooseOption, replyMarkup: inlineKeyboard);
@@ -189,10 +186,12 @@ namespace MazzaWebSite.TelegramClass
         private static void Groupmethod(CallbackQueryEventArgs e)
         {
             List<InlineKeyboardButton> urlbuttons = new List<InlineKeyboardButton>();
-            
-            foreach (var group in db.TelegramGroups.Where(t=>t.IsActive==true).ToList())
+            using (var dbContext = new MazzaDbContext())
             {
-                urlbuttons.Add(new InlineKeyboardButton { Text = group.Title, Url = group.InvitationLink });
+                foreach (var group in dbContext.TelegramGroups.Where(t => t.IsActive == true).ToList())
+                {
+                    urlbuttons.Add(new InlineKeyboardButton { Text = group.Title, Url = group.InvitationLink });
+                }
             }
             var inlineKeyboard = new InlineKeyboardMarkup(new[]
                                 {
@@ -261,31 +260,34 @@ namespace MazzaWebSite.TelegramClass
 
         private void ControlGroup(MessageEventArgs e)
         {
-            if (e.Message.NewChatMembers != null)
+            using (var dbContext = new MazzaDbContext())
             {
-                var NewChatMembers = e.Message.NewChatMembers.FirstOrDefault().Username;
+                if (e.Message.NewChatMembers != null)
+                {
+                    var NewChatMembers = e.Message.NewChatMembers.FirstOrDefault().Username;
 
-                if (db.TelegramAccounts.Any(u => u.TelegramUserName.Equals(NewChatMembers)) && !db.Deposits.FirstOrDefault().UserEntity.TelegramAccounts.Any(t => t.TelegramUserName.Equals(NewChatMembers)))
-                {
-                    db.TelegramAccountGroups.Add(new TelegramAccountGroup
+                    if (dbContext.TelegramAccounts.Any(u => u.TelegramUserName.Equals(NewChatMembers)) && !dbContext.Deposits.FirstOrDefault().UserEntity.TelegramAccounts.Any(t => t.TelegramUserName.Equals(NewChatMembers)))
                     {
-                        GroupId = db.TelegramGroups.FirstOrDefault(t => t.ChatId == e.Message.Chat.Id).Id,
-                        TelegramAccountId = db.TelegramAccounts.FirstOrDefault(t => t.TelegramUserName.Equals(NewChatMembers)).Id,
-                        EnterDate = DateTime.UtcNow,
-                        IsEvaluating = true
-                    });
-                    db.SaveChanges();
+                        dbContext.TelegramAccountGroups.Add(new TelegramAccountGroup
+                        {
+                            GroupId = dbContext.TelegramGroups.FirstOrDefault(t => t.ChatId == e.Message.Chat.Id).Id,
+                            TelegramAccountId = dbContext.TelegramAccounts.FirstOrDefault(t => t.TelegramUserName.Equals(NewChatMembers)).Id,
+                            EnterDate = DateTime.UtcNow,
+                            IsEvaluating = true
+                        });
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        Bot.KickChatMemberAsync(e.Message.Chat.Id, e.Message.NewChatMembers.First().Id);
+                    }
                 }
-                else
+                else if (e.Message.LeftChatMember != null)
                 {
-                    Bot.KickChatMemberAsync(e.Message.Chat.Id, e.Message.NewChatMembers.First().Id);
+                    var result = dbContext.TelegramAccountGroups.SingleOrDefault(t => t.TelegramAccounts.TelegramUserName.Equals(e.Message.LeftChatMember.Username));
+                    result.LeaveDate = DateTime.UtcNow;
+                    dbContext.SaveChanges();
                 }
-            }
-            else if (e.Message.LeftChatMember != null)
-            {
-                var result = db.TelegramAccountGroups.SingleOrDefault(t => t.TelegramAccounts.TelegramUserName.Equals(e.Message.LeftChatMember.Username));
-                result.LeaveDate = DateTime.UtcNow;
-                db.SaveChanges();
             }
         }
     }

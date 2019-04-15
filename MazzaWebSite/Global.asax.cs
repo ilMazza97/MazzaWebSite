@@ -1,5 +1,4 @@
-﻿using MazzaWebSite.Models;
-using MazzaWebSite.TelegramClass;
+﻿using MazzaWebSite.TelegramClass;
 using System;
 using System.Threading;
 using System.Web;
@@ -11,7 +10,6 @@ namespace MazzaWebSite
 {
     public class MvcApplication : HttpApplication
     {
-        protected static readonly MazzaDbContext db = new MazzaDbContext();
         private ITelegramBase telegramBase=null;
         protected void Application_Start()
         {
@@ -20,7 +18,7 @@ namespace MazzaWebSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             telegramBase = new TelegramBase();
-            telegramBase.InsertBot(db);
+            telegramBase.InsertBot();
 
         }
         protected void Application_BeginRequest(object sender, EventArgs e)

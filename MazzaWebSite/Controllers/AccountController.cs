@@ -22,7 +22,6 @@ namespace MazzaWebSite.Controllers
         private ApplicationUserManager _userManager;
         private ISendEmail _notificationService = null;
         private ICookie _cookie = null;
-        private MazzaDbContext db = new MazzaDbContext();
         TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         public AccountController()
         {
@@ -56,40 +55,44 @@ namespace MazzaWebSite.Controllers
         }
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId<int>();
-            var UserGA = db.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
-            string qrCodeImageUrl = string.Empty;
-            string manualEntryKey = string.Empty;
-            if (UserGA==null)
+            using (var dbContext = new MazzaDbContext())
             {
-                var setupInfo = tfa.GenerateSetupCode(General.OMPTitle, db.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 200, 200, true);
-
-                qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
-                manualEntryKey = setupInfo.ManualEntryKey;
-                db.GoogleAuths.Add(new GoogleAuthentication
+                var userId = User.Identity.GetUserId<int>();
+                var UserGA = dbContext.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
+                string qrCodeImageUrl = string.Empty;
+                string manualEntryKey = string.Empty;
+                if (UserGA == null)
                 {
-                    UserId = userId,
-                    QrCodeUrl = qrCodeImageUrl,
+                    var setupInfo = tfa.GenerateSetupCode(General.OMPTitle, dbContext.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 200, 200, true);
+
+                    qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+                    manualEntryKey = setupInfo.ManualEntryKey;
+                    dbContext.GoogleAuths.Add(new GoogleAuthentication
+                    {
+                        UserId = userId,
+                        QrCodeUrl = qrCodeImageUrl,
+                        ManualEntryKey = manualEntryKey,
+                        AccountSecretKey = "SuperSecretKeyGoesHere",
+                        IsActive = false,
+                        CreatedOn = DateTime.UtcNow
+                    });
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    qrCodeImageUrl = UserGA.QrCodeUrl;
+                    manualEntryKey = UserGA.ManualEntryKey;
+                }
+                ManageViewModel model = new ManageViewModel
+                {
+                    Users = dbContext.Users.ToList(),
+                    QrCodeImageUrl = qrCodeImageUrl,
                     ManualEntryKey = manualEntryKey,
-                    AccountSecretKey = "SuperSecretKeyGoesHere",
-                    IsActive = false,
-                    CreatedOn = DateTime.UtcNow
-                });
-                db.SaveChanges();
+                    IsActive = UserGA != null ? UserGA.IsActive : false
+                };
+
+                return View(model);
             }
-            else
-            {
-                qrCodeImageUrl = UserGA.QrCodeUrl;
-                manualEntryKey = UserGA.ManualEntryKey;             
-            }
-            ManageViewModel model = new ManageViewModel
-            {
-                Users = db.Users.ToList(),
-                QrCodeImageUrl = qrCodeImageUrl,
-                ManualEntryKey = manualEntryKey,
-                IsActive = UserGA!=null ? UserGA.IsActive : false
-            };
-            return View(model);
         }
 
         //
@@ -114,27 +117,31 @@ namespace MazzaWebSite.Controllers
 
         public ActionResult Google2Auth(string token)
         {
-            var userId = User.Identity.GetUserId<int>();
-            var UserGA = db.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
-            string message = string.Empty;
-            string status = string.Empty;
-            if (!UserGA.IsActive)
+            using (var dbContext = new MazzaDbContext())
             {
-                var validate = tfa.ValidateTwoFactorPIN(UserGA.AccountSecretKey, token, TimeSpan.FromSeconds(5));
-                if (validate)
+                var userId = User.Identity.GetUserId<int>();
+                var userGA = dbContext.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
+
+                string message = string.Empty;
+                string status = string.Empty;
+                if (!userGA.IsActive)
                 {
-                    UserGA.IsActive = true;
-                    db.SaveChanges();
-                    status = Success;
-                    message = "Change with success";
+                    var validate = tfa.ValidateTwoFactorPIN(userGA.AccountSecretKey, token, TimeSpan.FromSeconds(5));
+                    if (validate)
+                    {
+                        userGA.IsActive = true;
+                        dbContext.SaveChanges();
+                        status = Success;
+                        message = "Change with success";
+                    }
+                    else
+                    {
+                        status = Danger;
+                        message = "Error";
+                    }
                 }
-                else
-                {
-                    status = Danger;
-                    message = "Error";
-                }
+                return Json(new { success = true, Status = status, Message = message });
             }
-            return Json(new { success = true, Status = status, Message = message });
         }
 
         //
@@ -181,7 +188,11 @@ namespace MazzaWebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            var referent = db.Users.Where(u => u.UserName.Equals(model.ReferentCode)).FirstOrDefault();
+            User referent;
+            using (var dbContext = new MazzaDbContext())
+            {
+                referent = dbContext.Users.FirstOrDefault(u => u.UserName.Equals(model.ReferentCode));
+            }
             try
             {
                 if (referent != null && Request.Cookies["OMP-referentcode"].Value.Equals(model.ReferentCode))
@@ -218,9 +229,9 @@ namespace MazzaWebSite.Controllers
                                 Culture = _cookie.GetCookieLanguage(Request, Response).Value
                             };
 
-                            _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.UserRegistration, emailEntity, db);
+                            _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.UserRegistration, emailEntity);
 
-                            _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.NewAffiliateRegistration, emailEntity, db);
+                            _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.NewAffiliateRegistration, emailEntity);
 
                             return RedirectToAction("Index", "Home");
 
@@ -238,7 +249,7 @@ namespace MazzaWebSite.Controllers
             }
             catch (Exception ex)
             {
-                SendEmail.Send("lmazzaferro6@gmail.com", "Errore Register", ex.Message, db);
+                SendEmail.Send("lmazzaferro6@gmail.com", "Errore Register", ex.Message);
             }
             return View(model);
         }
@@ -311,14 +322,14 @@ namespace MazzaWebSite.Controllers
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code }, protocol: Request.Url.Scheme);
 
-                SendEmail.Send(user.Email, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>",db);
+                SendEmail.Send(user.Email, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 var emailEntity = new EmailEntity
                 {
                     Affiliate=user,
                     CallbackUrl= callbackUrl,
                     Culture = _cookie.GetCookieLanguage(Request,Response).Value
                 };
-                _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.ForgotPassword, emailEntity, db);
+                _notificationService.SendEmailFromTemplate(NotificationTemplateTypes.ForgotPassword, emailEntity);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -446,15 +457,18 @@ namespace MazzaWebSite.Controllers
 
         private List<SelectListItem> GetCountrylist()
         {
-            var dbValues = db.Countries.ToList();
-
-            var countries = new SelectList(dbValues.Select(item => new SelectListItem
+            using (var dbContext = new MazzaDbContext())
             {
-                Text = item.Name,
-                Value = item.Id.ToString()
-            }).ToList().OrderBy(c => c.Text), "Value", "Text");
+                var dbContextValues = dbContext.Countries.ToList();
 
-            return countries.ToList();
+                var countries = new SelectList(dbContextValues.Select(item => new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.Id.ToString()
+                }).ToList().OrderBy(c => c.Text), "Value", "Text");
+
+                return countries.ToList();
+            }
         }
 
         public void CheckReferentCookie(string @ref)

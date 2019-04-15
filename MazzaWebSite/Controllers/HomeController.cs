@@ -13,7 +13,6 @@ namespace MazzaWebSite.Controllers
 {
     public class HomeController : Controller
     {
-        MazzaDbContext db = new MazzaDbContext();
         private ICookie _cookie = null;
         public HomeController()
         {
@@ -29,12 +28,14 @@ namespace MazzaWebSite.Controllers
 
             //GetInstragramUrlImage(out List<string> instagramUrlImage);
             _cookie.CheckReferentCookie(Request, Response, @ref);
-            UserEntityModel model = new UserEntityModel
+            using (var dbContext = new MazzaDbContext())
             {
-                Users = db.Users.ToList(),
-                Deposits = db.Deposits.ToList(),
-                Withdrawals = db.Withdrawals.ToList(),
-                InstagramUrlImage = new List<string>
+                UserEntityModel model = new UserEntityModel
+                {
+                    Users = dbContext.Users.ToList(),
+                    Deposits = dbContext.Deposits.ToList(),
+                    Withdrawals = dbContext.Withdrawals.ToList(),
+                    InstagramUrlImage = new List<string>
                 {
                     "https://www.bucknell.edu/Images/Depts/Communication/Branding/ColorPalette-PaperWhite-200x200.jpg",
                     "https://www.bucknell.edu/Images/Depts/Communication/Branding/ColorPalette-PANTONE305C-200x200.jpg",
@@ -42,8 +43,9 @@ namespace MazzaWebSite.Controllers
                     "https://www.bucknell.edu/Images/Depts/Communication/Branding/ColorPalette-BucknellBlue-200x200.jpg",
                     "https://www.bucknell.edu/Images/Depts/Communication/Branding/ColorPalette-PANTONE137C-200x200.jpg"
                 }
-            };
-            return View(model);
+                };
+                return View(model);
+            }
         }
 
 
