@@ -6,11 +6,15 @@ namespace MazzaWebSite.Models
     [Table("paymenttype")]
     public class PaymentType : BaseEntity
     {
+        public PaymentType()
+        {
+            PaymentMethods = new HashSet<PaymentMethod>();
+        }
 
         public string Code { get; set; }
 
         public string PaymentTypeDesc { get; set; }
 
-        public virtual ICollection<Deposit> DepositEntity { get; set; }
+        public virtual ICollection<PaymentMethod> PaymentMethods { get; set; }
     }
 }

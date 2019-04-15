@@ -10,6 +10,7 @@ namespace MazzaWebSite.Models
         {
             Deposits = new HashSet<Deposit>();
             TelegramAccounts = new HashSet<TelegramAccount>();
+            GoogleAuths = new HashSet<GoogleAuthentication>();
         }
         public int ReferentId { get; set; }
 
@@ -39,11 +40,10 @@ namespace MazzaWebSite.Models
 
         public bool EmailConfirmed { get; set; }
 
-        public bool GoogleAuthenticator { get; set; }
 
-        //public virtual ICollection<CommissionPercentage> CommissionPercentageEntity { get; set; }
         public virtual ICollection<Deposit> Deposits { get; set; }
         public virtual ICollection<TelegramAccount> TelegramAccounts { get; set; }
+        public virtual ICollection<GoogleAuthentication> GoogleAuths { get; set; }
 
     }
 }

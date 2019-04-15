@@ -6,5 +6,7 @@ namespace MazzaWebSite.Models
     public class Business : BaseEntity
     {
         public string BusinessName { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

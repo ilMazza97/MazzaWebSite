@@ -11,7 +11,6 @@ namespace MazzaWebSite.Models
 
         public virtual TelegramAccount TelegramAccounts { get; set; }
 
-
         public DateTime? EnterDate { get; set; }
 
         public DateTime? LeaveDate { get; set; }

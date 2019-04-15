@@ -11,5 +11,10 @@
         public const string Success = "success";
         public const string Danger = "danger";
 
+        //Language
+        public const string Italiano = "italiano";
+        public const string Inglese = "english";
+        public const string Tedesco = "deutsch";
+        public const string Francese = "français";
     }
 }

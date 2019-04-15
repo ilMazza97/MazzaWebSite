@@ -23,6 +23,7 @@ namespace MazzaWebSite.Controllers
         private ISendEmail _notificationService = null;
         private ICookie _cookie = null;
         private MazzaDbContext db = new MazzaDbContext();
+        TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         public AccountController()
         {
             _notificationService = new SendEmail();
@@ -55,28 +56,38 @@ namespace MazzaWebSite.Controllers
         }
         public ActionResult Index()
         {
-            TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
             var userId = User.Identity.GetUserId<int>();
-            var setupInfo = tfa.GenerateSetupCode("One Million Project", db.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 300, 300);
+            var UserGA = db.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
+            string qrCodeImageUrl = string.Empty;
+            string manualEntryKey = string.Empty;
+            if (UserGA==null)
+            {
+                var setupInfo = tfa.GenerateSetupCode(General.OMPTitle, db.Users.FirstOrDefault(u => u.Id == userId).Email, "SuperSecretKeyGoesHere", 200, 200, true);
 
-            string qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
-            string manualEntrySetupCode = setupInfo.ManualEntryKey;
-            ViewBag.ImageUrl = qrCodeImageUrl;
-            ViewBag.Text = manualEntrySetupCode;
-
-            //var userId = User.Identity.GetUserId();
-            //var userIdInt= User.Identity.GetUserId<int>();
-            //var model = new IndexViewModel
-            //{
-            //    HasPassword = HasPassword(),
-            //    PhoneNumber = await UserManager.GetPhoneNumberAsync(userIdInt),
-            //    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userIdInt),
-            //    Logins = await UserManager.GetLoginsAsync(userIdInt),
-            //    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            //};
+                qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+                manualEntryKey = setupInfo.ManualEntryKey;
+                db.GoogleAuths.Add(new GoogleAuthentication
+                {
+                    UserId = userId,
+                    QrCodeUrl = qrCodeImageUrl,
+                    ManualEntryKey = manualEntryKey,
+                    AccountSecretKey = "SuperSecretKeyGoesHere",
+                    IsActive = false,
+                    CreatedOn = DateTime.UtcNow
+                });
+                db.SaveChanges();
+            }
+            else
+            {
+                qrCodeImageUrl = UserGA.QrCodeUrl;
+                manualEntryKey = UserGA.ManualEntryKey;             
+            }
             ManageViewModel model = new ManageViewModel
             {
-                Users = db.Users.ToList()
+                Users = db.Users.ToList(),
+                QrCodeImageUrl = qrCodeImageUrl,
+                ManualEntryKey = manualEntryKey,
+                IsActive = UserGA!=null ? UserGA.IsActive : false
             };
             return View(model);
         }
@@ -93,6 +104,37 @@ namespace MazzaWebSite.Controllers
                 ViewBag.ReturnUrl = returnUrl;
                 return View();
             }
+        }
+        [HttpPost]
+        public ActionResult Prova()
+        {
+
+            return Json(new { success = true, Status = "success", Message = "Cazzo tette culo figa" });
+        }
+
+        public ActionResult Google2Auth(string token)
+        {
+            var userId = User.Identity.GetUserId<int>();
+            var UserGA = db.GoogleAuths.FirstOrDefault(g => g.UserId == userId);
+            string message = string.Empty;
+            string status = string.Empty;
+            if (!UserGA.IsActive)
+            {
+                var validate = tfa.ValidateTwoFactorPIN(UserGA.AccountSecretKey, token, TimeSpan.FromSeconds(5));
+                if (validate)
+                {
+                    UserGA.IsActive = true;
+                    db.SaveChanges();
+                    status = Success;
+                    message = "Change with success";
+                }
+                else
+                {
+                    status = Danger;
+                    message = "Error";
+                }
+            }
+            return Json(new { success = true, Status = status, Message = message });
         }
 
         //

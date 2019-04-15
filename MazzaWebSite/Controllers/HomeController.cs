@@ -51,16 +51,16 @@ namespace MazzaWebSite.Controllers
         {
             switch (Regex.Replace(culture, @"[^0-9a-zA-Zç\._]", string.Empty).ToLower())
             {
-                case Language.Italiano:
+                case Enums.Italiano:
                     culture = "it";
                     break;
-                case Language.Inglese:
+                case Enums.Inglese:
                     culture = "en";
                     break;
-                case Language.Tedesco:
+                case Enums.Tedesco:
                     culture = "en";
                     break;
-                case Language.Francese:
+                case Enums.Francese:
                     culture = "en";
                     break;
                 default:

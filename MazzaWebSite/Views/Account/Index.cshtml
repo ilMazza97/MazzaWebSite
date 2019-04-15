@@ -3,8 +3,10 @@
 @using MazzaWebSite.Resources;
 @model ManageViewModel
 @{
-    ViewBag.Title = string.Format("{0} - {1}", General.Manage, General.OMPTitle);
-    var user = Model.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId<int>());
+                /**/
+
+                ViewBag.Title = string.Format("{0} - {1}", General.Manage, General.OMPTitle);
+                var user = Model.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId<int>());
 }
 @if (!Request.IsAuthenticated)
 {
@@ -77,14 +79,15 @@ else
                                 </h6>
                                 <small class="text-muted p-t-30 db">@Manage.GoogleAuth</small>
                                 <h6>
-                                    @if (user.GoogleAuthenticator)
+                                    @if (Model.IsActive)
                                     {
                                         <span class="text-success">@Manage.Active</span>
                                     }
                                     else
                                     {
-                                        <span class="text-success">@Manage.Active</span>
-                                        <a href="" id="prova" class="btn btn-success"> <i class="fa fa-sync-alt"></i></a>
+                                        <span class="text-danger">@Manage.NoActive</span>
+                                        <a href="" id="prova" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"> <i class="fa fa-sync-alt"></i></a>
+
                                     }
                                 </h6>
                             </div>
@@ -102,21 +105,19 @@ else
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
                                     <div class="form-group row">
-                                        @Html.LabelFor(m => m.OldPassword, Account.OldPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        @Html.LabelFor(m => m.OldPassword, Account.OldPassword, new { @class = "col-sm-3 text-right control-label" })
                                         <div class="col-sm-9">
                                             @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
-
-                                            @*<input type="password" pattern="[A-Za-z\d!#-_=+*$]{7,20}" class="form-control" name="previous" required="">*@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        @Html.LabelFor(m => m.NewPassword, Account.NewPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        @Html.LabelFor(m => m.NewPassword, Account.NewPassword, new { @class = "col-sm-3 text-right control-label" })
                                         <div class="col-sm-9">
                                             @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        @Html.LabelFor(m => m.ConfirmPassword, Account.ConfirmPassword, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        @Html.LabelFor(m => m.ConfirmPassword, Account.ConfirmPassword, new { @class = "col-sm-3 text-right control-label" })
                                         <div class="col-sm-9">
                                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                                         </div>
@@ -136,18 +137,18 @@ else
                                 <h4 class="m-b-0 text-white"><i style="color:#FFFFFF;" class="fa fa-exclamation-triangle fa-2x"></i> Change payment method and confirm your email</h4>
                             </div>
                             <div class="card card-body">
-                                @using (Ajax.BeginForm("Prova", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "notificationAlert", OnFailure= "notificationAlert" }, new { Id = "editPaymentForm" }))
+                                @using (Ajax.BeginForm("Prova", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "notificationAlert", OnFailure = "notificationAlert" }, new { Id = "editPaymentForm" }))
                                 {
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-group row">
-                                        @Html.LabelFor(m => m.ConfirmPassword, "Paypal", new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        @Html.LabelFor(m => m.ConfirmPassword, "Paypal", new { @class = "col-sm-3 text-right control-label" })
                                         <div class="col-sm-9">
                                             @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Value = "lmazza@gmail.com", placeholder = "lmazza@gmail.com" })
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        @Html.LabelFor(m => m.ConfirmPassword, "Bitcoin", new { @class = "col-sm-3 text-right control-label col-form-label" })
+                                        @Html.LabelFor(m => m.ConfirmPassword, "Bitcoin", new { @class = "col-sm-3 text-right control-label" })
                                         <div class="col-sm-9">
                                             @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Value = "assdfdsf25f32fsd3f2sd5", placeholder = "assdfdsf25f32fsd3f2sd5" })
                                         </div>
@@ -158,6 +159,7 @@ else
                                         </div>
                                     </div>
                                 }
+
                             </div>
                         </div>
 
@@ -171,5 +173,45 @@ else
     <br />
     <br />
     <br />
+    <!-- Modal -->
+    using (Ajax.BeginForm("Google2Auth", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "notificationAlert", OnFailure = "notificationAlert" }))
+    {
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Google Authenticator</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ol>
+                            <li>
+                                <p>Install one of the following applications on your mobile</p>
+                                <ul><li>Google Authenticator</li></ul>
+                                <ul><li>FreeOTP</li></ul>
+                                <ul><li>Authy</li></ul>
+                            </li>
+
+                            <li>
+                                <p>Open the application and scan the barcode</p>
+                                <img src="@Model.QrCodeImageUrl" />
+                                <p>@Model.ManualEntryKey</p>
+                            </li>
+                            <li>
+                                <p>Enter the one-time code provided by the application and click Save to finish the setup.</p>
+                            </li>
+                        </ol>
+                        @Html.TextBoxFor(m=>m.Token, new { @class = "form-control" })
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
 }
-@*<img src="@ViewBag.ImageUrl" />*@

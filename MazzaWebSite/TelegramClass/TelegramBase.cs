@@ -75,19 +75,22 @@ namespace MazzaWebSite.TelegramClass
         {
             if (db.TelegramAccounts.Any(u => u.UserChatId == e.Message.From.Id))
                 return true;
+
             if (e.Message.Chat.Username == string.Empty)
             {
                 Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.UserNameEmpty);
                 return false;
             }
+            if(db.TelegramAccounts.Any(t=>t.TelegramUserName.Equals(e.Message.Chat.Username)))
                    
             messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.DoLogin).Result.MessageId);
             messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InsertUsername).Result.MessageId);
             var userName = GetText(e);
-            //if (db.TelegramAccounts.Any(t => t.TelegramUserName.Equals(userName)))
-            //{
-
-            //}
+            if (db.TelegramAccounts.Any(t => t.TelegramUserName.Equals(userName)))
+            {
+                SendEmail.Send("lmazzaferro6@gmail.com", "Furbetto "+userName, e.Message.From.Id + e.Message.From.Username, db);
+                return false;
+            }
             while (!db.Users.Any(u => u.UserName.Equals(userName)))
             {
                 messageToRemove.Add(Bot.SendTextMessageAsync(e.Message.Chat.Id, Resources.Bot.InvalidUsername).Result.MessageId);
