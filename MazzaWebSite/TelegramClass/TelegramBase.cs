@@ -19,7 +19,7 @@ namespace MazzaWebSite.TelegramClass
     {
         private static readonly TelegramBotClient Bot = new TelegramBotClient(ConfigurationManager.AppSettings["TelegramBotKey"]);
 
-        private List<int> messageToRemove = new List<int>();
+        private readonly List<int> messageToRemove = new List<int>();
 
         public TelegramBase()
         {

@@ -1,5 +1,4 @@
 ﻿using Google.Authenticator;
-using MazzaWebSite.Identity;
 using MazzaWebSite.Models;
 using MazzaWebSite.Resources;
 using Microsoft.AspNet.Identity;
@@ -20,16 +19,20 @@ namespace MazzaWebSite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ISendEmail _notificationService = null;
-        private ICookie _cookie = null;
-        TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
+        private readonly ISendEmail _notificationService = null;
+        private readonly ICookie _cookie = null;
+        readonly TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         public AccountController()
         {
             _notificationService = new SendEmail();
             _cookie = new Cookie();
             
         }
-
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
         public ApplicationSignInManager SignInManager
         {
             get
@@ -219,7 +222,8 @@ namespace MazzaWebSite.Controllers
                         var result = await UserManager.CreateAsync(newUser, model.Password);
                         if (result.Succeeded)
                         {
-                            await _signInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                            //SI SPACCA
+                            await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
 
 
                             var emailEntity = new EmailEntity
@@ -245,12 +249,13 @@ namespace MazzaWebSite.Controllers
                     ModelState.AddModelError("", Account.UserNotFound);
                     ViewBag.CountryList = GetCountrylist();
                 }
-                ViewBag.CountryList = GetCountrylist();
+                
             }
             catch (Exception ex)
             {
                 SendEmail.Send("lmazzaferro6@gmail.com", "Errore Register", ex.Message);
             }
+            ViewBag.CountryList = GetCountrylist();
             return View(model);
         }
 

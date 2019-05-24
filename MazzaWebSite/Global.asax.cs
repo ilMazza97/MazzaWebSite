@@ -10,14 +10,13 @@ namespace MazzaWebSite
 {
     public class MvcApplication : HttpApplication
     {
-        private ITelegramBase telegramBase=null;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            telegramBase = new TelegramBase();
+            ITelegramBase telegramBase = new TelegramBase();
             telegramBase.InsertBot();
 
         }

@@ -8,7 +8,9 @@ namespace MazzaWebSite.Models
     {
         public MazzaDbContext()
              : base("name=MazzaDbContext")
-        { }
+        {
+            Configuration.LazyLoadingEnabled = false;
+        }
         public virtual DbSet<Business> Businesss { get; set; }
 
         //public virtual DbSet<CommissionPercentage> CommissionPercentages { get; set; }

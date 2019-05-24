@@ -16,7 +16,7 @@ namespace MazzaWebSite.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
