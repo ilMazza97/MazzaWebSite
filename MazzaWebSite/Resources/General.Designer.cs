@@ -61,6 +61,15 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deposit.
+        /// </summary>
+        public static string Deposit {
+            get {
+                return ResourceManager.GetString("Deposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter!.
         /// </summary>
         public static string Enter {

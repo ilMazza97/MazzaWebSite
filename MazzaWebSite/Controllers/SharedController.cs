@@ -8,6 +8,17 @@ namespace MazzaWebSite.Controllers
         {
             return View();
         }
-
+        public ActionResult success()
+        {
+            return View();
+        }
+        public ActionResult fail()
+        {
+            return View();
+        }
+        public ActionResult status()
+        {
+            return View();
+        }
     }
 }

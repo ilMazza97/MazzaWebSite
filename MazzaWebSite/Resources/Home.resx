@@ -121,16 +121,36 @@
     <value>About Us</value>
   </data>
   <data name="AboutUs1P" xml:space="preserve">
-    <value />
+    <value>&lt;p&gt;
+                        &lt;b&gt;One Million Project&lt;/b&gt; was born thanks to a group of people, established for several years in the world of investment, with the aim of creating its own financial independence.
+                    &lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                       Our areas of interest are financial markets, the world of crypto currencies and sport trading. Our team constantly analyzes the markets in search of opportunities to create new passive flows of cash accessible to all.
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                        Thanks to the excellent income returns, the group decided to make available to the public the activities it deals with.
+                    &lt;/p&gt;</value>
   </data>
   <data name="AboutUs2P" xml:space="preserve">
-    <value />
+    <value>&lt;h4&gt;How we operate&lt;/h4&gt;
+                    &lt;p&gt;
+                 Once we have identified a possible new source of revenue that is legal and effectively profitable, our team sieves it through different levels of analysis. The fundamental to pass are: performance testing, risk mitigation and passive implementation.
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                      This multi-level system allows us to guarantee long-lasting, low-risk and highly profitable investment solutions. OMP prioritises capital protection as an essential requirement for its activities. We prefer a "slow" profit over time than unreal promises of immediate wealth.
+                    &lt;/p&gt;                    
+&lt;p&gt;
+                       Our goal is to provide our community with the best possible investment solutions for their capital, helping you to build your wealth day after day reaching your deserved financial independence.
+                    &lt;/p&gt;</value>
   </data>
   <data name="AboutUs3P" xml:space="preserve">
-    <value />
+    <value>&lt;h4&gt;Our Businnes and forms of gain&lt;/h4&gt;
+                    &lt;p&gt;
+                    &lt;/p&gt;</value>
   </data>
   <data name="AboutUsST" xml:space="preserve">
-    <value />
+    <value>One Million Project is an investment group that focuses on investments of different financial nature.</value>
   </data>
   <data name="AllRightsReserved" xml:space="preserve">
     <value>All Rights Reserved</value>

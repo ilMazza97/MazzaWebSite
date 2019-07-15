@@ -70,6 +70,15 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coming soon.
+        /// </summary>
+        public static string BettingProjectST {
+            get {
+                return ResourceManager.GetString("BettingProjectST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crypto Project.
         /// </summary>
         public static string CryptoProject {
@@ -79,11 +88,29 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loved, volatile and complicated for a novice trader. We understand its potential and let the best traders on the market handle it all..
+        /// </summary>
+        public static string CryptoProjectST {
+            get {
+                return ResourceManager.GetString("CryptoProjectST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trading Project.
         /// </summary>
         public static string TradingProject {
             get {
                 return ResourceManager.GetString("TradingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This sector is now the race to who develops the fastest, most powerful and most performing A.I. We evaluate, test and offer only the best ones..
+        /// </summary>
+        public static string TradingProjectST {
+            get {
+                return ResourceManager.GetString("TradingProjectST", resourceCulture);
             }
         }
     }

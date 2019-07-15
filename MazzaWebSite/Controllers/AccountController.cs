@@ -207,7 +207,7 @@ namespace MazzaWebSite.Controllers
                         var newUser = new ApplicationUser
                         {
                             ReferentId = referent.Id,
-                            FirstName = model.FirstName,
+                            FirstName =model.FirstName,
                             LastName = model.LastName,
                             UserName = model.UserName,
                             Gender = model.Gender,

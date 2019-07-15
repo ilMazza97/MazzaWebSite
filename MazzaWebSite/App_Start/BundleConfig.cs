@@ -31,7 +31,8 @@ namespace MazzaWebSite
                       "~/css/ionicons.min.css",
                       "~/css/style.css"
                       ));
-
+            bundles.Add(new StyleBundle("~/css/theme").Include(
+                      "~/css/theme.css"));
         }
     }
 }

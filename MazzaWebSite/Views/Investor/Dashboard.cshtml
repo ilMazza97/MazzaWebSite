@@ -1,25 +1,28 @@
 ﻿@using MazzaWebSite.Resources;
-@model  IEnumerable<MazzaWebSite.Models.InvestmentReport>
+@using MazzaWebSite.Models;
+@model  Boh
 @{
     ViewBag.Title = string.Format("{0} - {1}", General.Home, General.OMPTitle);
 }
+@Styles.Render("~/css/theme")
+
 <br />
 <br />
 
 <div class="section__content section__content--p30">
     <div class="container-fluid">
         <h2 class="title-1 m-b-25">@Dashboard.dashboard</h2>
-        @*<div class="row m-t-25">
+        <div class="row m-t-25">
             <div class="col-sm-6 col-lg-3">
                 <div class="overview-item overview-item--c1">
                     <div class="overview__inner">
                         <div class="overview-box clearfix">
                             <div class="icon">
-                                <i class="zmdi zmdi-balance-wallet"></i>
+                                <i class="fas fa-trophy"></i>
                             </div>
                             <div class="text">
-                                <h2>10368</h2>
-                                <span>members online</span>
+                                <h2>-1</h2>
+                                <span>Rank</span>
                             </div>
                         </div>
                         <div class="overview-chart">
@@ -33,11 +36,11 @@
                     <div class="overview__inner">
                         <div class="overview-box clearfix">
                             <div class="icon">
-                                <i class="zmdi zmdi-account-o"></i>
+                                <i class="fas fa-user-plus"></i>
                             </div>
                             <div class="text">
-                                <h2>@Model.FirstOrDefault().AffiliateCount</h2>
-                                <span>affiliate number</span>
+                                <h2>@Model.InvestmentReports.FirstOrDefault().AffiliateCount</h2>
+                                <span>@Dashboard.AffiliateMember</span>
                             </div>
                         </div>
                         <div class="overview-chart">
@@ -51,11 +54,11 @@
                     <div class="overview__inner">
                         <div class="overview-box clearfix">
                             <div class="icon">
-                                <i class="zmdi zmdi-calendar-note"></i>
+                                <i class="fas fa-dollar-sign"></i>
                             </div>
                             <div class="text">
-                                <h2>@Model.FirstOrDefault().TotalDeposit</h2>
-                                <span>total deposit</span>
+                                <h2>@Model.InvestmentReports.FirstOrDefault().TotalDeposit</h2>
+                                <span>@Dashboard.TotalDeposit</span>
                             </div>
                         </div>
                         <div class="overview-chart">
@@ -69,11 +72,11 @@
                     <div class="overview__inner">
                         <div class="overview-box clearfix">
                             <div class="icon">
-                                <i class="zmdi zmdi-money"></i>
+                                <i class="fas fa-hand-holding-usd"></i>
                             </div>
                             <div class="text">
-                                <h2>@Model.FirstOrDefault().TotalWithdrawal</h2>
-                                <span>total withdrawal</span>
+                                <h2>@Model.InvestmentReports.FirstOrDefault().TotalWithdrawal</h2>
+                                <span>@Dashboard.TotalWithdrawal</span>
                             </div>
                         </div>
                         <div class="overview-chart">
@@ -114,9 +117,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="recent-report__chart">
+                        @*<div class="recent-report__chart">
                             <canvas id="recent-rep-chart"></canvas>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -137,16 +140,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
+                            @*<div class="col-xl-6">
                                 <div class="percent-chart">
                                     <canvas id="percent-chart"></canvas>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -156,8 +159,6 @@
                         <thead>
                             <tr>
                                 <th>Package Name</th>
-                                <th>Referent Name</th>
-                                <th>Referent LastName</th>
                                 <th>Package Total</th>
                                 <th>Package Percentage</th>
                                 <th>Deposit Percentage</th>
@@ -167,16 +168,14 @@
                                 <th>Destinate Commission</th>
                                 <th>Commission %</th>
                                 <th>Next Payout</th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var investment in Model)
+                            @foreach (var investment in Model.InvestmentReports)
                             {
                                 <tr>
                                     <td>@investment.PackageName</td>
-                                    <td>@investment.ReferentName</td>
-                                    <td>@investment.ReferentLastName</td>
                                     <td>@investment.PackageTotal</td>
                                     <td>@investment.PackagePercentage</td>
                                     <td>@investment.DepositPercentage</td>
@@ -190,6 +189,53 @@
                             }
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <h2 class="title-1 m-b-25">@Dashboard.Affiliate</h2>
+            <div class="au-card au-card--bg-blue au-card-top-countries m-b-40">
+                <div class="au-card-inner">
+                    <div class="table-responsive">
+                        <table class="table table-top-countries">
+                            <thead>
+                                <tr>
+                                    <th>@Account.FirstName</th>
+                                    <th>@Account.LastName</th>
+                                    <th>@Dashboard.ActiveOn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.AffiliateLists.Count > 0)
+                                {
+                                    foreach (var affiliate in Model.AffiliateLists)
+                                    {
+                                        <tr>
+                                            @if (affiliate.IsActive != 0)
+                                            {
+                                                <td class="text-success">@affiliate.FirstName</td>
+                                                <td class="text-success">@affiliate.LastName</td>
+                                                <td>@affiliate.ActiveDate.ToShortDateString()</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-danger">@affiliate.FirstName</td>
+                                                <td class="text-danger">@affiliate.LastName</td>
+                                                <td class="text-danger">-</td>
+                                            }
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td style="text-align:center" colspan="3">@Dashboard.NotMember</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

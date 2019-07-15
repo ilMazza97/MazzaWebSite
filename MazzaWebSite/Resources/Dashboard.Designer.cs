@@ -61,11 +61,65 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active On.
+        /// </summary>
+        public static string ActiveOn {
+            get {
+                return ResourceManager.GetString("ActiveOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Affiliate.
+        /// </summary>
+        public static string Affiliate {
+            get {
+                return ResourceManager.GetString("Affiliate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Affiliate Member.
+        /// </summary>
+        public static string AffiliateMember {
+            get {
+                return ResourceManager.GetString("AffiliateMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         public static string dashboard {
             get {
                 return ResourceManager.GetString("dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have any affiliates yet..
+        /// </summary>
+        public static string NotMember {
+            get {
+                return ResourceManager.GetString("NotMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Deposit.
+        /// </summary>
+        public static string TotalDeposit {
+            get {
+                return ResourceManager.GetString("TotalDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Withdrawal.
+        /// </summary>
+        public static string TotalWithdrawal {
+            get {
+                return ResourceManager.GetString("TotalWithdrawal", resourceCulture);
             }
         }
     }

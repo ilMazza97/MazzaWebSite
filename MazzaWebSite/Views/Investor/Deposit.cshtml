@@ -1,0 +1,40 @@
+﻿@using MazzaWebSite.Resources;
+@model MazzaWebSite.Models.DepositModel
+@{
+    ViewBag.Title = string.Format("{0} - {1}", General.Deposit, General.OMPTitle);
+    int i = 1;
+}
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="deposit-title">@General.Deposit</h2>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("CreateTransaction", "Investor", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "input--style-5", @id = "DepositAmount", placeholder = "Inserisci amount" })
+                    <div class="payment-methods-list">
+                        @foreach (var coin in Model.PaymentTypes)
+                        {
+                            <div class="boh">
+                                @Html.RadioButtonFor(m => m.Coin, coin.Code, new { @id = string.Concat("pay_method", i), @class = "radio_item"})
+                                <label class="label_item" for=@string.Concat("pay_method", i)>
+                                    <img class="payment-method-image" src=@Path.Combine("../img/Payment",string.Concat(coin.Code,".png"))>
+                                    <span>@coin.PaymentTypeDesc</span>
+                                </label>
+                            </div>
+                            i++;
+                        }
+                    </div>
+
+                    <div class="deposit-btn">
+                        <button class="btn btn--radius-2 btn--red" type="submit" id="deposit-btn" disabled>@General.Deposit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

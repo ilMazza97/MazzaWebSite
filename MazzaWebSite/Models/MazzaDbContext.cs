@@ -17,6 +17,7 @@ namespace MazzaWebSite.Models
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Culture> Cultures { get; set; }
         public virtual DbSet<Deposit> Deposits { get; set; }
+        public virtual DbSet<DepositTransaction> DepositTransactions { get; set; }
         public virtual DbSet<GoogleAuthentication> GoogleAuths { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         //public virtual DbSet<Investment> Investments { get; set; }
@@ -30,6 +31,7 @@ namespace MazzaWebSite.Models
         public virtual DbSet<TelegramAccountGroup> TelegramAccountGroups { get; set; }
         public virtual DbSet<TelegramGroup> TelegramGroups { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<WalletType> WalletTypes { get; set; }
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         //public virtual DbSet<InvestmentReport> InvestmentReports { get; set; }
         

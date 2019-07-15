@@ -1,9 +1,13 @@
-﻿using MazzaWebSite.Models;
+﻿using Hangfire;
+using Hangfire.FluentNHibernateStorage;
+using MazzaWebSite.Job;
+using MazzaWebSite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Snork.FluentNHibernateTools;
 using System;
 
 namespace MazzaWebSite

@@ -27,10 +27,17 @@ namespace MazzaWebSite.TelegramClass
         }
         public void InsertBot()
         {
-            Bot.StartReceiving();
-            Bot.OnMessage += StartMessage;
-            Bot.OnMessageEdited += StartMessage;
-            Bot.OnCallbackQuery += Bot_OnCallbackQuery;
+            try
+            {
+                Bot.StartReceiving();
+                Bot.OnMessage += StartMessage;
+                Bot.OnMessageEdited += StartMessage;
+                Bot.OnCallbackQuery += Bot_OnCallbackQuery;
+            }
+            catch (Exception ex)
+            {
+                SendEmail.Send("lmazzaferro6@gmail.com", "Errore Telegram Bot", ex.Message);
+            }
         }
 
         private void StartMessage(object sender, MessageEventArgs e)
@@ -123,7 +130,10 @@ namespace MazzaWebSite.TelegramClass
             Bot.SendTextMessageAsync(e.Message.Chat.Id, string.Format(Resources.Bot.Welcome, e.Message.Chat.Username));
             Thread.Sleep(1000);
         }
-
+        private string GetText(CallbackQueryEventArgs e)
+        {
+            return "";
+        }
         private string GetText(MessageEventArgs e)
         {
             var pippo = true;
@@ -172,7 +182,6 @@ namespace MazzaWebSite.TelegramClass
                     break;
                 case ButtonType.Deposit:
                     Deposit(e);
-                    Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "In fase di costruzione");
                     break;
                 case ButtonType.Settings:
                     Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "In fase di costruzione");
@@ -201,8 +210,7 @@ namespace MazzaWebSite.TelegramClass
                        },
                        new []
                        {
-                           urlbuttons[1],
-                           urlbuttons[2],
+                           urlbuttons[1]
                        }
                     });
             Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, Resources.Bot.EnterGroup, replyMarkup: inlineKeyboard);
@@ -239,12 +247,17 @@ namespace MazzaWebSite.TelegramClass
 
         private static void Deposit(CallbackQueryEventArgs e)
         {
-            //var FileUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Image\deposit.png");
-            ////var stream = new FileStream(FileUrl, FileMode.Open, FileAccess.Read)
-            //using (FileStream stream = File.Open(FileUrl, FileMode.Open, FileAccess.Read))
-            //{
-            //    Bot.SendPhotoAsync(e.CallbackQuery.Message.Chat.Id, stream, "1Gk3THiKweoH5n2Zd4GssUHJGxMcDXrL9D");
-            //}
+            List<InlineKeyboardButton> paymentButtons = new List<InlineKeyboardButton>();
+            using (var dbContext = new MazzaDbContext())
+            {
+                foreach (var type in dbContext.PaymentTypes.Where(t => t.IsActive == true).ToList())
+                {
+                    paymentButtons.Add(new InlineKeyboardButton { Text = type.PaymentTypeDesc, CallbackData = type.Code });
+                }
+            }
+            var inlineKeyboard = new ReplyKeyboardMarkup();
+            Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, Resources.Bot.EnterGroup, replyMarkup: inlineKeyboard);
+
         }
 
         internal static string GetResources(string value)

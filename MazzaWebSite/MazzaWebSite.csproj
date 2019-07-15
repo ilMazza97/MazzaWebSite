@@ -440,6 +440,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="Controllers\Payment.cs" />
     <Compile Include="Job\MazzaAuthorizationFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SendEmail.cs" />
@@ -462,6 +463,8 @@
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\BaseEntityWithSimpleId.cs" />
     <Compile Include="Models\Business.cs" />
+    <Compile Include="Models\DepositModel.cs" />
+    <Compile Include="Models\DepositTransaction.cs" />
     <Compile Include="Models\EmailEntity.cs" />
     <Compile Include="Attribute\EmailValidation.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
@@ -492,6 +495,7 @@
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\TelegramAccount.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\WalletType.cs" />
     <Compile Include="Models\Withdrawal.cs" />
     <Compile Include="PaymentMethod\Configuration.cs" />
     <Compile Include="PaymentMethod\Paypal.cs" />
@@ -584,6 +588,10 @@
     <Compile Include="TelegramClass\TelegramBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\theme.css" />
+    <Content Include="css\webfonts\fa-brands-400.svg" />
+    <Content Include="css\webfonts\fa-regular-400.svg" />
+    <Content Include="css\webfonts\fa-solid-900.svg" />
     <Content Include="img\1.jpg" />
     <Content Include="img\2.jpg" />
     <Content Include="img\3.jpg" />
@@ -591,6 +599,23 @@
     <Content Include="img\5.jpg" />
     <Content Include="css\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="img\Payment\ADV.png" />
+    <Content Include="img\Payment\BCH.png" />
+    <Content Include="img\Payment\BNB.png" />
+    <Content Include="img\Payment\BTC.png" />
+    <Content Include="img\Payment\DASH.png" />
+    <Content Include="img\Payment\DOGE.png" />
+    <Content Include="img\Payment\EOS.png" />
+    <Content Include="img\Payment\ETH.png" />
+    <Content Include="img\Payment\LTC.png" />
+    <Content Include="img\Payment\NEO.png" />
+    <Content Include="img\Payment\Skrill.png" />
+    <Content Include="img\Payment\TRX.png" />
+    <Content Include="img\Payment\TUSD.png" />
+    <Content Include="img\Payment\USDT.png" />
+    <Content Include="img\Payment\VTC.png" />
+    <Content Include="img\Payment\XMR.png" />
+    <Content Include="img\Payment\XVG.png" />
     <Content Include="img\intro-img.svg" />
     <Content Include="img\about-extra-1.1.svg" />
     <Content Include="img\about-extra-2.2.svg" />
@@ -679,7 +704,24 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="css\webfonts\fa-brands-400.eot" />
+    <Content Include="css\webfonts\fa-brands-400.ttf" />
+    <Content Include="css\webfonts\fa-brands-400.woff" />
+    <Content Include="css\webfonts\fa-brands-400.woff2" />
+    <Content Include="css\webfonts\fa-regular-400.eot" />
+    <Content Include="css\webfonts\fa-regular-400.ttf" />
+    <Content Include="css\webfonts\fa-regular-400.woff" />
+    <Content Include="css\webfonts\fa-regular-400.woff2" />
+    <Content Include="css\webfonts\fa-solid-900.eot" />
+    <Content Include="css\webfonts\fa-solid-900.ttf" />
+    <Content Include="css\webfonts\fa-solid-900.woff" />
+    <Content Include="css\webfonts\fa-solid-900.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Views\Investor\Deposit.cshtml" />
+    <Content Include="Views\Shared\success.cshtml" />
+    <Content Include="Views\Shared\fail.cshtml" />
+    <Content Include="Views\Shared\status.cshtml" />
+    <Content Include="Views\Payment\Skrill.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

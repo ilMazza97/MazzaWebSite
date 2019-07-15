@@ -70,7 +70,12 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;p&gt;
+        ///                        &lt;b&gt;One Million Project&lt;/b&gt; was born thanks to a group of people, established for several years in the world of investment, with the aim of creating its own financial independence.
+        ///                    &lt;/p&gt;
+        ///                    &lt;br /&gt;
+        ///                    &lt;p&gt;
+        ///                       Our areas of interest are financial markets, the world of crypto currencies and sport trading. Our team constantly analyzes the markets in search of opportunities to create new passive flows of cash a [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AboutUs1P {
             get {
@@ -79,7 +84,12 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;h4&gt;How we operate&lt;/h4&gt;
+        ///                    &lt;p&gt;
+        ///                 Once we have identified a possible new source of revenue that is legal and effectively profitable, our team sieves it through different levels of analysis. The fundamental to pass are: performance testing, risk mitigation and passive implementation.
+        ///                    &lt;/p&gt;
+        ///                    &lt;p&gt;
+        ///                      This multi-level system allows us to guarantee long-lasting, low-risk and highly profitable investment solutions. OMP pri [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AboutUs2P {
             get {
@@ -88,7 +98,9 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;h4&gt;Our Businnes and forms of gain&lt;/h4&gt;
+        ///                    &lt;p&gt;
+        ///                    &lt;/p&gt;.
         /// </summary>
         public static string AboutUs3P {
             get {
@@ -97,7 +109,7 @@ namespace MazzaWebSite.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to One Million Project is an investment group that focuses on investments of different financial nature..
         /// </summary>
         public static string AboutUsST {
             get {

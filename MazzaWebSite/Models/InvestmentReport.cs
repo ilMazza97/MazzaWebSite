@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
 
 namespace MazzaWebSite.Models
 {
+    public class Boh
+    {
+        public List<InvestmentReport> InvestmentReports { get; set; }
+        public List<AffiliateList> AffiliateLists { get; set; }
+    }
     public class InvestmentReport : BaseEntity
     {
-        public string ReferentName { get; set; }
-        public string ReferentLastName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal PackageTotal { get; set; }
@@ -20,6 +24,13 @@ namespace MazzaWebSite.Models
         public string Commission { get; set; }
         public DateTime NextPayout { get; set; }
         public int AffiliateCount { get; set; }
-
+        public List<string> Affiliate { get; set; }
+    }
+    public class AffiliateList
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int IsActive { get; set; }
+        public DateTime ActiveDate { get; set; }
     }
 }

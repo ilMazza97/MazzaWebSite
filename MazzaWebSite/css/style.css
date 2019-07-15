@@ -283,7 +283,8 @@ color: #007bff
 
 .main-nav .drop-down > a:after {
 content: "\f107";
-font-family: FontAwesome;
+/*content: "\f078";*/
+font-family: "Font Awesome 5 Free";
 padding-left: 10px
 }
 
@@ -1027,7 +1028,7 @@ input,select {
       color: #222; }
     input:focus:-moz-placeholder {
       color: #222; }
-/*input[type=checkbox]:not(old) {
+input[type=checkbox]:not(old) {
     width: 2em;
     margin: 0;
     padding: 0;
@@ -1074,7 +1075,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   line-height: 1.2;
   text-align: center;
   font-family: 'Material-Design-Iconic-Font';
-  font-weight: bold; }*/
+  font-weight: bold; }
 
 .agree-term {
     display: inline-block;
@@ -1120,7 +1121,7 @@ label.valid {
     width: 100%;
     height: 100%;
     position: absolute;
-    /* right: 0; */
+     right: 0; 
     font-size: 16px;
     color: green; }
 
@@ -1225,7 +1226,7 @@ label.valid {
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 0px;
-    /* box-sizing: border-box; */
+     box-sizing: border-box; 
     padding: 0 30px; }
 
   .signin-image {
@@ -1261,7 +1262,13 @@ label.valid {
     padding: 0 30px; }
 
   .form-title {
-    text-align: center; } }
+    text-align: center; }
+
+    .label_item {
+        display: flex;
+        width: 87%;
+    }
+}
 @media screen and (max-width: 400px) {
   .social-login {
     flex-direction: column;
@@ -1332,7 +1339,7 @@ transform: translateY(-5px)
 
 @media (min-width: 768px) {
 
-/* show 3 items */
+ show 3 items 
 .carousel-inner .active,
 .carousel-inner .active + .carousel-item,
 .carousel-inner .active + .carousel-item + .carousel-item,
@@ -1362,7 +1369,7 @@ display: block;
 visibility: visible;
 }
 
-/* left or forward direction */
+ left or forward direction 
 .active.carousel-item-left + .carousel-item-next.carousel-item-left,
 .carousel-item-next.carousel-item-left + .carousel-item,
 .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
@@ -1373,7 +1380,7 @@ transform: translate3d(-100%, 0, 0);
 visibility: visible;
 }
 
-/* farthest right hidden item must be abso position for animations */
+ farthest right hidden item must be abso position for animations 
 .carousel-inner .carousel-item-prev.carousel-item-right {
 position: absolute;
 top: 0;
@@ -1383,7 +1390,7 @@ display: block;
 visibility: visible;
 }
 
-/* right or prev direction */
+ right or prev direction 
 .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
 .carousel-item-prev.carousel-item-right + .carousel-item,
 .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
@@ -1401,7 +1408,7 @@ border-radius: 30%
 }
 
 
- /* Bootstrap Lightbox using Modal */
+  Bootstrap Lightbox using Modal 
 
 #profile-grid { overflow: auto; white-space: normal; } 
 #profile-grid .profile { padding-bottom: 40px; }
@@ -1451,9 +1458,7 @@ border-radius: 30%
   background: #56c0d8;
   border-color: #56c0d8; }
 
-/*============================================================== 
- Cards page
- ============================================================== */
+
 .card-actions {
   float: right; }
   .card-actions a {
@@ -1523,9 +1528,281 @@ border-radius: 30%
     position: relative;
 }
 
-/*[data-notify="container"] {
+[data-notify="container"] {
     top:50px;
-}*/
+}
 .login-dialog .modal-dialog {
     width: 300px;
+}
+
+
+.deposit-title {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+}
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+    margin: 0 auto;
+    margin: 150px auto 80px auto;
+}
+.wrapper-main {
+    margin: 50px auto;
+}
+
+.wrapper--w960 {
+    max-width: 960px;
+}
+
+.wrapper--w790 {
+    max-width: 790px;
+}
+
+.wrapper--w780 {
+    max-width: 780px;
+}
+
+.wrapper--w680 {
+    max-width: 680px;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.card {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.card-5 {
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+    .card-5 .card-heading {
+        padding: 20px 0;
+        background: #1a1a1a;
+        -webkit-border-top-left-radius: 10px;
+        -moz-border-radius-topleft: 10px;
+        border-top-left-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+        -moz-border-radius-topright: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-5 .card-body {
+        padding: 52px 85px;
+        padding-bottom: 50px;
+    }
+
+@media (max-width: 767px) {
+    .card-5 .card-body {
+        padding: 40px 30px;
+        padding-bottom: 50px;
+    }
+}
+.radio_item {
+    display: none !important;
+}
+
+.label_item {
+    float: left;
+    display: table;
+    width: 45%;
+    height: 6.25rem;
+    margin-bottom: .75rem;
+    padding: 1rem;
+    background-color: #f8f9f9;
+    background-image: linear-gradient(-180deg,#f8f9f9 0%,#f8f9f9 100%);
+    box-shadow: 0 1px transparent;
+    border: 1px solid #b7b7b7;
+    margin: 15px 15px 2px;
+    position: relative;
+}
+
+.radio_item:checked + label {
+    /*opacity: 1;*/
+    background-image: linear-gradient(to right, blue, pink);
+}
+
+label {
+    cursor: pointer;
+}
+
+.payment-method-image {
+    margin-top: .525rem;
+    width: 45px;
+    height: 45px
+}
+
+.payment-methods-list {
+}
+
+.label_item:hover {
+    background-image: linear-gradient(-180deg,#fff 0%,#fff 100%)
+}
+
+.deposit-btn {
+    margin: 0px auto;
+    width: 26%;
+    display: flex;
+}
+
+.label_item span {
+    color: black;
+    font-size: 20px;
+}
+@media (max-width: 767px) {
+    .input-group-desc {
+        margin-bottom: 40px;
+    }
+
+    /*select {
+        padding: 0;
+        height: 20px;
+        width: 30px;
+        position: absolute;
+        margin: -45px 0 0 50px;
+    }*/
+
+    /*.row {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }*/
+    .label_item {
+        width: 90%;
+    }
+    .btn {
+        display: block;
+    }
+
+    .wrapper {
+        margin: 115px auto 80px auto;
+    }
+    .deposit-btn {
+        display: table;
+    }
+}
+
+.input--style-5 {
+    background: #e5e5e5;
+    line-height: 50px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0 22px;
+    font-size: 16px;
+    color: #555;
+    border: none;
+    height: 50px;
+}
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 50px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  font-family: inherit;
+}
+
+.btn--radius {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.btn--radius-2 {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.btn--pill {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.btn--green {
+  background: #57b846;
+}
+
+.btn--green:hover {
+  background: #4dae3c;
+}
+
+.btn--blue {
+  background: #4272d7;
+}
+
+.btn--blue:hover {
+  background: #3868cd;
+}
+
+.btn--red {
+  background: #ff4b5a;
+}
+
+.btn--red:hover {
+  background: #eb3746;
+}
+.payment-methods-list {
+    margin-top: 70px;
+}
+@media screen and (max-width: 768px) {
+    .signup-content, .signin-content {
+        flex-direction: column;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        -o-flex-direction: column;
+        -ms-flex-direction: column;
+        justify-content: center;
+        -moz-justify-content: center;
+        -webkit-justify-content: center;
+        -o-justify-content: center;
+        -ms-justify-content: center;
+    }
+
+    .signup-form, .signup-image, .signin-form, .signin-image {
+        width: auto;
+    }
+
+    .signup-form {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding: 0 30px;
+    }
+    .form-title {
+        text-align: center;
+    }
+    .account-container {
+        width: 90%;
+        margin: 0 auto;
+    }
 }

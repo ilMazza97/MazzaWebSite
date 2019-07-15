@@ -120,10 +120,19 @@
   <data name="BettingProject" xml:space="preserve">
     <value>Sports Project</value>
   </data>
+  <data name="BettingProjectST" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
   <data name="CryptoProject" xml:space="preserve">
     <value>Crypto Project</value>
   </data>
+  <data name="CryptoProjectST" xml:space="preserve">
+    <value>Loved, volatile and complicated for a novice trader. We understand its potential and let the best traders on the market handle it all.</value>
+  </data>
   <data name="TradingProject" xml:space="preserve">
     <value>Trading Project</value>
+  </data>
+  <data name="TradingProjectST" xml:space="preserve">
+    <value>This sector is now the race to who develops the fastest, most powerful and most performing A.I. We evaluate, test and offer only the best ones.</value>
   </data>
 </root>
